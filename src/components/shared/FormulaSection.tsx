@@ -102,7 +102,7 @@ export default function FormulaSection() {
         >
           <div className="flex flex-col items-center">
             <div
-              className="grid items-baseline gap-x-6 md:gap-x-10 gap-y-0 text-center font-mono tracking-tight"
+              className="grid items-baseline gap-x-3 sm:gap-x-6 md:gap-x-10 gap-y-0 text-center font-mono tracking-tight w-full"
               style={{ gridTemplateColumns: "1fr auto 1fr auto 1fr" }}
             >
               {/* Row 1: "You've got" label + arrow — fade in together */}
@@ -112,7 +112,7 @@ export default function FormulaSection() {
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
               >
-                <span className="text-orange text-sm font-heading tracking-wider uppercase">
+                <span className="text-orange text-[10px] sm:text-sm font-heading tracking-wider uppercase">
                   You&apos;ve got
                 </span>
                 <CurvedArrow direction="down" delay={0.8} isInView={isInView} />
@@ -123,24 +123,24 @@ export default function FormulaSection() {
               <div />
 
               {/* Row 2: equation */}
-              <span className="text-4xl md:text-6xl text-cream/60 flex justify-center">
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/60 flex justify-center">
                 AI
               </span>
-              <span className="text-4xl md:text-6xl text-cream/40">×</span>
-              <span className="text-4xl md:text-6xl text-cream/60 flex justify-center">
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/40">×</span>
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/60 flex justify-center">
                 human
               </span>
-              <span className="text-4xl md:text-6xl text-cream/40">=</span>
-              <span className="text-4xl md:text-6xl text-cream flex justify-center">
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/40">=</span>
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex justify-center">
                 value
               </span>
 
               {/* Row 3: sub-labels */}
-              <span className="text-cream/50 text-xs tracking-wider uppercase pt-2 flex justify-center">
+              <span className="text-cream/50 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
                 Capability
               </span>
               <div />
-              <span className="text-cream/50 text-xs tracking-wider uppercase pt-2 flex justify-center">
+              <span className="text-cream/50 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
                 Readiness
               </span>
               <div />
@@ -156,7 +156,7 @@ export default function FormulaSection() {
                 transition={{ duration: 0.5, delay: 1.4, ease: "easeOut" }}
               >
                 <CurvedArrow direction="up" delay={1.6} isInView={isInView} />
-                <span className="text-orange text-sm font-heading tracking-wider uppercase">
+                <span className="text-orange text-[10px] sm:text-sm font-heading tracking-wider uppercase">
                   we solve for
                 </span>
               </motion.div>
