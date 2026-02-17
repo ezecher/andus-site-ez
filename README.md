@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Andus Labs Website
 
-## Getting Started
+Next.js + Sanity CMS rebuild of [anduslabs.com](https://anduslabs.com).
 
-First, run the development server:
+## Tech Stack
+
+- **Next.js 16** (App Router, TypeScript)
+- **Tailwind CSS v4**
+- **Framer Motion** for animations
+- **Sanity v3** (embedded studio at `/studio`)
+
+## Prerequisites
+
+- Node.js 20+
+- A [Sanity.io](https://sanity.io) account
+
+## Setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Create a Sanity project
+
+Go to [sanity.io/manage](https://www.sanity.io/manage) and create a new project, or run:
+
+```bash
+npx sanity@latest init
+```
+
+Note your **Project ID** and create an API token with **Editor** permissions.
+
+### 3. Configure environment
+
+Copy `.env.example` to `.env.local` and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+```
+NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2026-02-17
+SANITY_API_TOKEN=your-write-token
+```
+
+### 4. Seed initial data
+
+Upload team members, field notes, and site settings to Sanity:
+
+```bash
+npx tsx scripts/seed.ts
+```
+
+### 5. Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) for the site and [http://localhost:3000/studio](http://localhost:3000/studio) for the CMS.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npx tsx scripts/seed.ts` | Seed Sanity with initial data |
 
-## Learn More
+## Pages
 
-To learn more about Next.js, take a look at the following resources:
+| Route | Description |
+|-------|-------------|
+| `/` | Home |
+| `/human-os` | The Human OS for AI |
+| `/approach` | Approach (maturity model, offerings) |
+| `/team` | Team (CMS-driven) |
+| `/field-notes` | Field Notes (CMS-driven) |
+| `/contact` | Contact form |
+| `/studio` | Sanity Studio (CMS admin) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## CMS Content Types
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Site Settings** (singleton) -- nav links, footer text, social links, contact email
+- **Team Members** -- name, role, headshot, bio, LinkedIn, sort order
+- **Field Notes** -- type, title, description, cover image, URL/PDF, featured flag
 
-## Deploy on Vercel
+## Deployment (Vercel)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push to GitHub
+2. Import to [Vercel](https://vercel.com)
+3. Add environment variables in Vercel project settings
+4. Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Yes | Sanity project ID |
+| `NEXT_PUBLIC_SANITY_DATASET` | Yes | Sanity dataset (usually `production`) |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | Yes | Sanity API version date |
+| `SANITY_API_TOKEN` | For seed only | Sanity write token |

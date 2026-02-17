@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-cream: #FAF5EA;
+  --color-violet: #1A064B;
+  --color-zaffre: #0C1D98;
+  --color-periwinkle: #DCD6F7;
+  --color-cinerous: #AA988F;
+  --color-indigo: #7884FF;
+  --color-orange: #FF4F01;
+  --color-orange-hover: #e54600;
+
+  --font-body: var(--font-archivo);
+  --font-heading: var(--font-syne);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Selection highlight */
+::selection {
+  background-color: #DCD6F7;
+  color: #1A064B;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Grid background pattern matching the original site */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(220, 214, 247, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(220, 214, 247, 0.25) 1px, transparent 1px);
+  background-size: calc(100vw / 6) calc(100vh / 8);
+}
+
+/* Hover underline animation for nav links */
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #1A064B;
+  transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* Smooth spin for decorative elements */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }
