@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, type Rule } from "sanity";
 
 export default defineType({
   name: "humanOsPage",
@@ -121,13 +121,13 @@ export default defineType({
               name: "title",
               title: "Title",
               type: "string",
-              validation: (rule: { required: () => unknown }) => rule.required(),
+              validation: (rule: Rule) => rule.required(),
             },
             {
               name: "description",
               title: "Description",
               type: "text",
-              // @ts-expect-error - Sanity schema field option
+
               rows: 2,
             },
           ],
@@ -156,14 +156,14 @@ export default defineType({
               name: "text",
               title: "Text",
               type: "text",
-              // @ts-expect-error - Sanity schema field option
+
               rows: 2,
             },
             {
               name: "bold",
               title: "Bold?",
               type: "boolean",
-              // @ts-expect-error - Sanity schema field option
+
               initialValue: false,
             },
           ],

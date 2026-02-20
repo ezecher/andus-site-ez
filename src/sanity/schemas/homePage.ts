@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, type Rule } from "sanity";
 
 export default defineType({
   name: "homePage",
@@ -43,13 +43,13 @@ export default defineType({
               name: "label",
               title: "Button Label",
               type: "string",
-              validation: (rule: { required: () => unknown }) => rule.required(),
+              validation: (rule: Rule) => rule.required(),
             },
             {
               name: "href",
               title: "Button Link",
               type: "string",
-              validation: (rule: { required: () => unknown }) => rule.required(),
+              validation: (rule: Rule) => rule.required(),
             },
           ],
           preview: {
