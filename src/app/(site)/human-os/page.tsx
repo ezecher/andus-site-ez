@@ -2,19 +2,38 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import Button from "@/components/shared/Button";
+import { sanityFetch } from "@/sanity/lib/live";
+import { HUMAN_OS_PAGE_QUERY } from "@/sanity/lib/queries";
+import type { HumanOsPage } from "@/types";
 
-export const metadata: Metadata = {
-  title: "The Human OS for AI",
-  description:
-    "The gap isn't technology. It's people ready to deploy it. Five levers, one system that closes the gap.",
-};
+// ── Fallback ──
 
-export default function HumanOSPage() {
-  const levers = [
+const fallback: HumanOsPage = {
+  heroHeadline: "The Math Doesn\u2019t Work",
+  heroSubheading:
+    "The gap isn\u2019t technology. It\u2019s people ready to deploy it.",
+  heroBody:
+    "Training alone isn\u2019t working. Pilots stall. Champions burn out. There\u2019s an operating system for your technology. There\u2019s never been one for your people. Until now. The Human OS for AI.",
+  heroBoldPhrase: "The Human OS for AI.",
+  heroCtaLabel: "Our Approach",
+  heroCtaHref: "/approach",
+  statHeadline: "$190B",
+  statLabel: "Unrealized",
+  statLeftValue: "$10B",
+  statLeftLabel: "Value Realized to Date",
+  statRightValue: "$200B",
+  statRightLabel: "Enterprise AI Investment (2025)",
+  statBarPercent: 5,
+  statSource: "Sources: Goldman Sachs, Menlo Ventures, MIT",
+  leversEyebrow: "Close the Gap",
+  leversHeadline: "The Human OS for AI",
+  leversSubtext:
+    "Five levers. One system. Each one unlocks value. Together, they close the gap.",
+  levers: [
     {
       title: "Talent & Development",
       description:
-        'People ready to put AI to work. Not "AI curious" — AI capable.',
+        'People ready to put AI to work. Not "AI curious" \u2014 AI capable.',
     },
     {
       title: "Expert Interfaces",
@@ -24,7 +43,7 @@ export default function HumanOSPage() {
     {
       title: "Clear Ownership",
       description:
-        "Someone's name attached to the work. Real authority and accountability.",
+        "Someone\u2019s name attached to the work. Real authority and accountability.",
     },
     {
       title: "Rituals & Cadence",
@@ -34,7 +53,80 @@ export default function HumanOSPage() {
       title: "Incentives & Identity",
       description: "Growth, not threat. Elevation, not replacement.",
     },
-  ];
+  ],
+  bottomHeadline:
+    "The gap isn\u2019t technology. It\u2019s people ready to deploy it.",
+  bottomBody: [
+    {
+      text: "When you invest in their readiness, they invest in yours.",
+      bold: false,
+    },
+    {
+      text: "Take care of your people. They\u2019ll take care of business.",
+      bold: false,
+    },
+    { text: "This is the work that makes AI work.", bold: true },
+  ],
+  bottomCtaLabel: "Our Approach",
+  bottomCtaHref: "/approach",
+  bottomCallout: "See the Human OS applied.",
+  bottomCalloutSub:
+    "How we diagnose readiness gaps and engineer a path forward.",
+  metaTitle: "The Human OS for AI",
+  metaDescription:
+    "The gap isn\u2019t technology. It\u2019s people ready to deploy it. Five levers, one system that closes the gap.",
+};
+
+// ── Metadata ──
+
+export async function generateMetadata(): Promise<Metadata> {
+  let page: HumanOsPage = fallback;
+  try {
+    const { data } = await sanityFetch({ query: HUMAN_OS_PAGE_QUERY });
+    if (data) page = data;
+  } catch {
+    // fallback
+  }
+  return {
+    title: page.metaTitle || fallback.metaTitle,
+    description: page.metaDescription || fallback.metaDescription,
+  };
+}
+
+// ── Helper ──
+
+function BodyWithBold({
+  text,
+  boldPhrase,
+}: {
+  text: string;
+  boldPhrase?: string;
+}) {
+  if (!boldPhrase || !text.includes(boldPhrase)) return <>{text}</>;
+  const parts = text.split(boldPhrase);
+  return (
+    <>
+      {parts[0]}
+      <strong>{boldPhrase}</strong>
+      {parts[1]}
+    </>
+  );
+}
+
+// ── Page ──
+
+export default async function HumanOSPage() {
+  let p: HumanOsPage = fallback;
+
+  try {
+    const { data } = await sanityFetch({ query: HUMAN_OS_PAGE_QUERY });
+    if (data) p = data;
+  } catch {
+    // fallback
+  }
+
+  const levers = p.levers?.length ? p.levers : fallback.levers!;
+  const bottomBody = p.bottomBody?.length ? p.bottomBody : fallback.bottomBody!;
 
   return (
     <>
@@ -43,18 +135,23 @@ export default function HumanOSPage() {
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           <SectionWrapper>
             <h1 className="font-heading text-5xl md:text-7xl font-bold leading-[1.05] text-violet mb-6">
-              The Math Doesn&apos;t Work
+              {p.heroHeadline}
             </h1>
-            <p className="font-heading text-xl md:text-2xl text-zaffre/70 mb-6">
-              The gap isn&apos;t technology. It&apos;s people ready to deploy it.
-            </p>
-            <p className="text-violet/80 leading-relaxed mb-8">
-              Training alone isn&apos;t working. Pilots stall. Champions burn
-              out. There&apos;s an operating system for your technology.
-              There&apos;s never been one for your people. Until now.{" "}
-              <strong>The Human OS for AI.</strong>
-            </p>
-            <Button href="/approach">Our Approach &nbsp;&rsaquo;</Button>
+            {p.heroSubheading && (
+              <p className="font-heading text-xl md:text-2xl text-zaffre/70 mb-6">
+                {p.heroSubheading}
+              </p>
+            )}
+            {p.heroBody && (
+              <p className="text-violet/80 leading-relaxed mb-8">
+                <BodyWithBold text={p.heroBody} boldPhrase={p.heroBoldPhrase} />
+              </p>
+            )}
+            {p.heroCtaLabel && p.heroCtaHref && (
+              <Button href={p.heroCtaHref}>
+                {p.heroCtaLabel} &nbsp;&rsaquo;
+              </Button>
+            )}
           </SectionWrapper>
 
           {/* Statistics visualization */}
@@ -63,38 +160,42 @@ export default function HumanOSPage() {
               <div className="space-y-8">
                 <div className="text-center">
                   <p className="text-orange font-heading text-5xl md:text-6xl font-bold">
-                    $190B
+                    {p.statHeadline}
                   </p>
                   <p className="text-orange text-xs tracking-wider uppercase mt-2">
-                    Unrealized
+                    {p.statLabel}
                   </p>
                 </div>
 
                 <div className="relative h-24 bg-violet rounded">
                   <div
                     className="absolute bottom-0 left-0 h-full bg-zaffre rounded"
-                    style={{ width: "5%" }}
+                    style={{ width: `${p.statBarPercent ?? 5}%` }}
                   />
                 </div>
 
                 <div className="flex justify-between text-sm">
                   <div>
-                    <p className="font-heading font-bold text-xl">$10B</p>
+                    <p className="font-heading font-bold text-xl">
+                      {p.statLeftValue}
+                    </p>
                     <p className="text-cinerous text-xs uppercase tracking-wider">
-                      Value Realized to Date
+                      {p.statLeftLabel}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-bold text-xl">$200B</p>
+                    <p className="font-heading font-bold text-xl">
+                      {p.statRightValue}
+                    </p>
                     <p className="text-cinerous text-xs uppercase tracking-wider">
-                      Enterprise AI Investment (2025)
+                      {p.statRightLabel}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-cinerous text-xs">
-                  Sources: Goldman Sachs, Menlo Ventures, MIT
-                </p>
+                {p.statSource && (
+                  <p className="text-cinerous text-xs">{p.statSource}</p>
+                )}
               </div>
             </div>
           </SectionWrapper>
@@ -105,23 +206,23 @@ export default function HumanOSPage() {
       <section className="bg-violet text-cream py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-6">
           <SectionWrapper>
-            <p className="text-orange text-xs tracking-wider uppercase mb-4 font-heading">
-              Close the Gap
-            </p>
+            {p.leversEyebrow && (
+              <p className="text-orange text-xs tracking-wider uppercase mb-4 font-heading">
+                {p.leversEyebrow}
+              </p>
+            )}
             <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-              The Human OS for AI
+              {p.leversHeadline}
             </h2>
-            <p className="text-cream/70 mb-8 max-w-2xl">
-              Five levers. One system. Each one unlocks value. Together, they
-              close the gap.
-            </p>
+            {p.leversSubtext && (
+              <p className="text-cream/70 mb-8 max-w-2xl">{p.leversSubtext}</p>
+            )}
           </SectionWrapper>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             {levers.map((lever, i) => (
               <SectionWrapper key={lever.title} delay={i * 0.1}>
                 <div className="relative">
-                  {/* Dot connector */}
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-3 h-3 rounded-full bg-orange" />
                     {i < levers.length - 1 && (
@@ -146,32 +247,38 @@ export default function HumanOSPage() {
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <SectionWrapper>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-violet mb-4">
-              The gap isn&apos;t technology. It&apos;s people ready to deploy it.
+              {p.bottomHeadline}
             </h2>
-            <div className="mt-8">
-              <Button href="/approach">Our Approach &nbsp;&rsaquo;</Button>
-            </div>
+            {p.bottomCtaLabel && p.bottomCtaHref && (
+              <div className="mt-8">
+                <Button href={p.bottomCtaHref}>
+                  {p.bottomCtaLabel} &nbsp;&rsaquo;
+                </Button>
+              </div>
+            )}
           </SectionWrapper>
 
           <SectionWrapper delay={0.2} direction="right">
             <div className="text-violet/80 space-y-4">
-              <p>
-                When you invest in their readiness, they invest in yours.
-              </p>
-              <p>
-                Take care of your people. They&apos;ll take care of business.
-              </p>
-              <p className="font-bold">
-                This is the work that makes AI work.
-              </p>
-              <div className="mt-6">
-                <p className="font-heading font-bold text-violet">
-                  See the Human OS applied.
+              {bottomBody.map((para, i) => (
+                <p key={i} className={para.bold ? "font-bold" : ""}>
+                  {para.text}
                 </p>
-                <p className="text-cinerous text-sm">
-                  How we diagnose readiness gaps and engineer a path forward.
-                </p>
-              </div>
+              ))}
+              {(p.bottomCallout || p.bottomCalloutSub) && (
+                <div className="mt-6">
+                  {p.bottomCallout && (
+                    <p className="font-heading font-bold text-violet">
+                      {p.bottomCallout}
+                    </p>
+                  )}
+                  {p.bottomCalloutSub && (
+                    <p className="text-cinerous text-sm">
+                      {p.bottomCalloutSub}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </SectionWrapper>
         </div>
@@ -181,7 +288,7 @@ export default function HumanOSPage() {
       <section className="py-0">
         <div className="mx-auto max-w-5xl px-6">
           <Image
-            src="/images/human os.png"
+            src="/images/human-os/human-os.png"
             alt="Technology and architecture collage"
             width={1440}
             height={800}

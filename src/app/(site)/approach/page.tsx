@@ -1,41 +1,105 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
-import Button from "@/components/shared/Button";
 import MaturityModel from "@/components/approach/MaturityModel";
 import OfferingsGrid from "@/components/approach/OfferingsGrid";
 import PatternMatchTool from "@/components/approach/PatternMatch/PatternMatchTool";
+import { sanityFetch } from "@/sanity/lib/live";
+import { APPROACH_PAGE_QUERY } from "@/sanity/lib/queries";
+import type { ApproachPage } from "@/types";
 
-export const metadata: Metadata = {
-  title: "Approach",
-  description:
+// ── Fallback ──
+
+const fallback: ApproachPage = {
+  heroHeadline: "Building is Human",
+  heroSubheading: "We accelerate readiness.\nYou capture value.",
+  heroBody:
+    "We start with where you are, not where a roadmap assumes you should be.",
+  maturityHeadline: "Andus Maturity Model",
+  maturitySubtext: "The first framework for human + AI readiness.",
+  maturityLevels: [
+    { name: "Access", valueCaptured: "5\u201310%", valuePct: 7, annualImpact: "$50\u2013100K", state: "AI deployed. Committed users are the exception.", tell: '"Who\u2019s driving AI?" The room goes quiet.' },
+    { name: "Heroes", valueCaptured: "15\u201325%", valuePct: 20, annualImpact: "$250\u2013500K", state: "AI working in isolated areas. Heroes, not systems.", tell: '"You should talk to Sarah. She\u2019s figured this out."' },
+    { name: "Operational", valueCaptured: "30\u201350%", valuePct: 40, annualImpact: "$1\u20132M", state: "Human OS emerging. Systematic approach beginning.", tell: '"What\u2019s the business case library look like?" It exists.' },
+    { name: "Integrated", valueCaptured: "60\u201380%", valuePct: 70, annualImpact: "$3\u20135M", state: "Human OS functioning. Work moves faster and gets better.", tell: "Same team, half the cycle time, better output." },
+    { name: "Native", valueCaptured: "80\u2013100%", valuePct: 90, annualImpact: "$8\u201315M", state: "Human OS fully operational. The impossible becomes normal.", tell: '"You\u2019re the case study others benchmark against."' },
+  ],
+  taxHeadline: "Readiness Tax",
+  taxSubtext: "Every quarter at Levels 1 and 2 costs you:",
+  taxStats: [
+    { value: "~20%", label: "productivity gap" },
+    { value: "3x", label: "talent attrition" },
+    { value: "50%+", label: "using shadow AI" },
+  ],
+  offeringsEyebrow: "How We Work",
+  offeringsHeadline: "Four offerings. Each unlocks the next level.",
+  offeringsSubtext: "We don\u2019t sell hours. We sell transitions.",
+  offerings: [
+    { levelRange: "Level 01 \u2192 Level 02", title: "Activation Sprint", description: "From scattered experiments to teams building together. You leave with pilots running, not plans pending.", duration: "4 weeks", idealFor: "Teams 25 - 100", delivers: "Team Readiness Playbook + 3 operational pilots", modules: ["Blocker Diagnosis", "Opportunity Mapping", "Day-One Builds", "Team Mindset"] },
+    { levelRange: "Level 02 \u2192 Level 03", title: "Readiness Diagnostic", description: "Find exactly where you\u2019re stuck. Map the gaps between AI capability and organizational capacity. Surface what\u2019s blocking acceleration.", duration: "6 weeks", idealFor: "Orgs 500+", delivers: "Readiness Map + 90-day action plan + 2-3 working prototypes", modules: ["Cross-Functional Assessment", "AI Stack Evaluation", "Pattern Mapping", "Prototype Development"] },
+    { levelRange: "Level 03 \u2192 Level 04", title: "Value Architecture", description: "From promising pilots to enterprise-wide proof. Numbers that get budget approved and leadership aligned.", duration: "8 weeks", idealFor: "Pilot to enterprise", delivers: "Value Model + Executive Business Case + Integration Playbook", modules: ["Value Modeling", "Business Case Development", "Executive Alignment", "Integration Planning"] },
+    { levelRange: "Level 04 \u2192 Level 05", title: "Transformation Design", description: "From integrated AI to fully rebuilt operating model. You become the case study others benchmark against.", duration: "12 weeks", idealFor: "Board mandate", delivers: "Operating Model 2.0 + Role Architecture + Governance Framework", modules: ["Operating Model Design", "Role Architecture", "Governance Framework", "Change Infrastructure"] },
+  ],
+  metaTitle: "Approach",
+  metaDescription:
     "Building is Human. We accelerate readiness. You capture value. The first framework for human + AI readiness.",
 };
 
-export default function ApproachPage() {
+// ── Metadata ──
+
+export async function generateMetadata(): Promise<Metadata> {
+  let p: ApproachPage = fallback;
+  try {
+    const { data } = await sanityFetch({ query: APPROACH_PAGE_QUERY });
+    if (data) p = data;
+  } catch { /* fallback */ }
+  return {
+    title: p.metaTitle || fallback.metaTitle,
+    description: p.metaDescription || fallback.metaDescription,
+  };
+}
+
+// ── Page ──
+
+export default async function ApproachPageRoute() {
+  let p: ApproachPage = fallback;
+  try {
+    const { data } = await sanityFetch({ query: APPROACH_PAGE_QUERY });
+    if (data) p = data;
+  } catch { /* fallback */ }
+
+  const levels = p.maturityLevels?.length ? p.maturityLevels : fallback.maturityLevels!;
+  const taxStats = p.taxStats?.length ? p.taxStats : fallback.taxStats!;
+  const offerings = p.offerings?.length ? p.offerings : fallback.offerings!;
+
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-12 md:pt-20 pb-4 md:pb-6">
-        <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <section className="pt-6 md:pt-8 pb-0">
+        <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <SectionWrapper>
             <h1 className="font-heading text-6xl md:text-8xl font-bold leading-[1.0] text-violet mb-6">
-              Building is Human
+              {p.heroHeadline}
             </h1>
-            <p className="font-heading text-2xl md:text-3xl text-zaffre/70 mb-6 leading-snug">
-              We accelerate readiness.<br />
-              You capture value.
-            </p>
-            <p className="text-violet/80 leading-relaxed">
-              We start with where you are, not where a roadmap assumes you
-              should be.
-            </p>
+            {p.heroSubheading && (
+              <p className="font-heading text-2xl md:text-3xl text-zaffre/70 mb-6 leading-snug">
+                {p.heroSubheading.split("\n").map((line, i) => (
+                  <span key={i}>
+                    {i > 0 && <br />}
+                    {line}
+                  </span>
+                ))}
+              </p>
+            )}
+            {p.heroBody && (
+              <p className="text-violet/80 leading-relaxed">{p.heroBody}</p>
+            )}
           </SectionWrapper>
 
           <SectionWrapper delay={0.2} direction="right">
             <Image
-              src="/images/approach.png"
-              alt="Approach visual"
+              src="/images/approach/approach-humans-build.png"
+              alt="Building is Human — collage illustration"
               width={600}
               height={600}
               className="w-full h-auto"
@@ -45,7 +109,11 @@ export default function ApproachPage() {
       </section>
 
       {/* Maturity Model */}
-      <MaturityModel />
+      <MaturityModel
+        headline={p.maturityHeadline}
+        subtext={p.maturitySubtext}
+        levels={levels}
+      />
 
       {/* Readiness Tax Warning */}
       <section className="bg-violet text-cream py-10">
@@ -59,31 +127,21 @@ export default function ApproachPage() {
               </div>
               <div>
                 <h3 className="font-heading font-bold text-lg mb-2">
-                  Readiness Tax
+                  {p.taxHeadline || fallback.taxHeadline}
                 </h3>
                 <p className="text-cream/70 text-sm">
-                  Every quarter at Levels 1 and 2 costs you:
+                  {p.taxSubtext || fallback.taxSubtext}
                 </p>
               </div>
               <div className="flex flex-wrap gap-8 ml-auto">
-                <div>
-                  <p className="font-heading font-bold text-orange text-lg">
-                    ~20%
-                  </p>
-                  <p className="text-cream/60 text-xs">productivity gap</p>
-                </div>
-                <div>
-                  <p className="font-heading font-bold text-orange text-lg">
-                    3x
-                  </p>
-                  <p className="text-cream/60 text-xs">talent attrition</p>
-                </div>
-                <div>
-                  <p className="font-heading font-bold text-orange text-lg">
-                    50%+
-                  </p>
-                  <p className="text-cream/60 text-xs">using shadow AI</p>
-                </div>
+                {taxStats.map((stat, i) => (
+                  <div key={i}>
+                    <p className="font-heading font-bold text-orange text-lg">
+                      {stat.value}
+                    </p>
+                    <p className="text-cream/60 text-xs">{stat.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </SectionWrapper>
@@ -91,7 +149,12 @@ export default function ApproachPage() {
       </section>
 
       {/* Offerings */}
-      <OfferingsGrid />
+      <OfferingsGrid
+        eyebrow={p.offeringsEyebrow}
+        headline={p.offeringsHeadline}
+        subtext={p.offeringsSubtext}
+        offerings={offerings}
+      />
 
       {/* Pattern Match */}
       <PatternMatchTool />

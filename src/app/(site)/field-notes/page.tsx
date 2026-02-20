@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import Button from "@/components/shared/Button";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { FIELD_NOTES_QUERY } from "@/sanity/lib/queries";
 import type { FieldNoteItem } from "@/types";
 
@@ -70,22 +70,31 @@ const fallbackNotes: FieldNoteItem[] = [
   },
 ];
 
-// Map titles to local cover images
+// Fallback maps for when Sanity is not configured (local images/PDFs)
 const coverMap: Record<string, string> = {
   "Human OS for AI: The Missing Multiplier": "/images/essay-human-os.png",
   "The Human Element: What Machines Cannot Become":
     "/images/essay-human-element.png",
-  "Culture OS": "/images/culture-os-cover.png",
-  "The Machine Layer": "/images/machine-layer-cover.png",
-  "Borrowed Time": "/images/borrowed-time-cover.png",
+  "Culture OS": "/images/field-notes/culture-os-cover.jpg",
+  "The Machine Layer": "/images/field-notes/machine-layer-cover.jpg",
+  "Borrowed Time": "/images/field-notes/borrowed-time-cover.jpg",
 };
 
-// Map titles to local PDF files
 const pdfMap: Record<string, string> = {
   "Culture OS": "/documents/culture-os.pdf",
   "The Machine Layer": "/documents/machine-layer.pdf",
   "Borrowed Time": "/documents/borrowed-time.pdf",
 };
+
+/** Resolve the best cover image URL for a note (Sanity → fallback → placeholder) */
+function getCoverUrl(note: FieldNoteItem): string {
+  return note.coverImageUrl || coverMap[note.title] || "/images/andus-cube.png";
+}
+
+/** Resolve the best link for a note (external URL → Sanity PDF → fallback PDF) */
+function getNoteHref(note: FieldNoteItem): string {
+  return note.externalUrl || note.pdfUrl || pdfMap[note.title] || "#";
+}
 
 const typeLabels: Record<string, string> = {
   essay: "Essay",
@@ -97,9 +106,9 @@ export default async function FieldNotesPage() {
   let notes: FieldNoteItem[] = fallbackNotes;
 
   try {
-    const sanityData = await client.fetch(FIELD_NOTES_QUERY);
-    if (sanityData && sanityData.length > 0) {
-      notes = sanityData;
+    const { data } = await sanityFetch({ query: FIELD_NOTES_QUERY });
+    if (data && data.length > 0) {
+      notes = data;
     }
   } catch {
     // Use fallback data
@@ -120,7 +129,7 @@ export default async function FieldNotesPage() {
           </SectionWrapper>
           <SectionWrapper delay={0.2}>
             <Image
-              src="/images/perspectives-feature.png"
+              src="/images/field-notes/field-notes-banner.jpg"
               alt="Andus Labs Guild"
               width={1200}
               height={400}
@@ -182,11 +191,12 @@ export default async function FieldNotesPage() {
               >
                 <div className={i % 2 === 1 ? "md:order-2" : ""}>
                   <Image
-                    src={coverMap[note.title] || "/images/andus-cube.png"}
+                    src={getCoverUrl(note)}
                     alt={note.title}
                     width={600}
                     height={400}
                     className="w-full h-auto"
+                    unoptimized={!!note.coverImageUrl}
                   />
                 </div>
                 <div className={i % 2 === 1 ? "md:order-1" : ""}>
@@ -219,49 +229,55 @@ export default async function FieldNotesPage() {
         </div>
       </section>
 
-      {/* Secondary Cards */}
-      <section className="py-10">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {secondary.map((note, i) => (
-              <SectionWrapper key={note._id} delay={i * 0.1}>
-                <div className="group">
-                  <div className="aspect-[4/5] relative overflow-hidden mb-4 bg-periwinkle/20">
-                    <Image
-                      src={coverMap[note.title] || "/images/andus-cube.png"}
-                      alt={note.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  </div>
-                  <p className="text-orange text-xs tracking-[0.15em] uppercase font-heading font-bold mb-2">
-                    {typeLabels[note.type]}
-                  </p>
-                  <h3 className="font-heading font-bold text-violet text-lg mb-2">
-                    {note.title}
-                  </h3>
-                  <p className="text-violet/70 text-sm leading-relaxed mb-4">
-                    {note.description}
-                  </p>
+      {/* Secondary Cards — horizontal scroll */}
+      {secondary.length > 0 && (
+        <section className="py-10">
+          <div className="mx-auto max-w-7xl px-6 mb-6">
+            <SectionWrapper>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-violet">
+                More Field Notes
+              </h2>
+            </SectionWrapper>
+          </div>
+          <div className="relative">
+            <div className="flex gap-6 overflow-x-auto px-6 pb-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-periwinkle scrollbar-track-transparent md:pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))]">
+              {secondary.map((note, i) => (
+                <SectionWrapper key={note._id} delay={i * 0.1}>
                   <Link
-                    href={
-                      note.externalUrl ||
-                      pdfMap[note.title] ||
-                      "#"
-                    }
+                    href={getNoteHref(note)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-heading font-bold text-violet text-sm hover:text-zaffre transition-colors"
+                    className="group flex-shrink-0 w-[280px] sm:w-[320px] snap-start block"
                   >
-                    Download PDF &nbsp;&rarr;
+                    <div className="aspect-[4/5] relative overflow-hidden mb-4 bg-periwinkle/20">
+                      <Image
+                        src={getCoverUrl(note)}
+                        alt={note.title}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="320px"
+                        unoptimized={!!note.coverImageUrl}
+                      />
+                    </div>
+                    <p className="text-orange text-xs tracking-[0.15em] uppercase font-heading font-bold mb-2">
+                      {typeLabels[note.type]}
+                    </p>
+                    <h3 className="font-heading font-bold text-violet text-lg mb-2 group-hover:text-zaffre transition-colors">
+                      {note.title}
+                    </h3>
+                    <p className="text-violet/70 text-sm leading-relaxed mb-4">
+                      {note.description}
+                    </p>
+                    <span className="font-heading font-bold text-violet text-sm group-hover:text-zaffre transition-colors">
+                      {note.externalUrl ? "Read essay" : "Download PDF"} &nbsp;&rarr;
+                    </span>
                   </Link>
-                </div>
-              </SectionWrapper>
-            ))}
+                </SectionWrapper>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA + Subscribe */}
       <section className="bg-periwinkle/30 py-12 md:py-16">

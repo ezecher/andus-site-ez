@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { roles } from "./patternData";
 import SectionWrapper from "@/components/shared/SectionWrapper";
+import HubSpotForm from "@/components/shared/HubSpotForm";
 
 export default function PatternMatchTool() {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
   return (
-    <section className="py-16 md:py-24 bg-periwinkle/30">
+    <section id="diagnostic" className="py-16 md:py-24 bg-periwinkle/30">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
           {/* Left: Title, description, what informs, CTA */}
@@ -45,19 +46,29 @@ export default function PatternMatchTool() {
                 and what to do about it.
               </p>
 
-              {/* CTA */}
-              <h3 className="font-heading text-2xl md:text-3xl font-bold text-violet mb-3">
-                Start capturing value
-              </h3>
-              <p className="text-violet/60 mb-6">
-                Find your level. Build the path forward.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-block font-heading text-sm tracking-wide px-8 py-3 border-2 border-violet text-violet hover:bg-violet/10 transition-all duration-300"
-              >
-                Request a Custom Diagnostic &nbsp;&rsaquo;
-              </Link>
+              <AnimatePresence mode="wait">
+                {!showForm ? (
+                  <motion.button
+                    key="cta-button"
+                    onClick={() => setShowForm(true)}
+                    className="font-heading text-sm tracking-wide px-8 py-4 bg-orange text-cream border-2 border-orange hover:bg-orange-hover hover:border-orange-hover transition-all duration-300 cursor-pointer"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Request a Custom Diagnostic &nbsp;&rsaquo;
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key="cta-form"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                  >
+                    <HubSpotForm formId="bcb152ad-d66b-41ec-b699-6b1b96c8c46e" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </SectionWrapper>
 
@@ -114,14 +125,9 @@ export default function PatternMatchTool() {
                   className="mt-6 p-4 bg-periwinkle/20 border border-periwinkle rounded-sm"
                 >
                   <p className="text-violet/70 text-sm">
-                    Full pattern matching coming soon. For now,{" "}
-                    <a
-                      href="/contact"
-                      className="text-zaffre font-bold hover:underline"
-                    >
-                      get in touch
-                    </a>{" "}
-                    to discuss patterns specific to your role.
+                    Great choice. Fill out the diagnostic form on the left and
+                    we&apos;ll surface patterns specific to your role and
+                    organization.
                   </p>
                 </motion.div>
               )}

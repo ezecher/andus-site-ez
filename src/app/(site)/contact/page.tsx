@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import SectionWrapper from "@/components/shared/SectionWrapper";
-import ContactForm from "@/components/contact/ContactForm";
+import HubSpotForm from "@/components/shared/HubSpotForm";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -34,7 +34,7 @@ export default function ContactPage() {
           </SectionWrapper>
 
           <SectionWrapper delay={0.2} direction="right">
-            <ContactForm />
+            <HubSpotForm formId="cd5b9b1c-fd93-4a76-a9a7-f09a433f2f6c" />
           </SectionWrapper>
         </div>
       </section>
@@ -49,7 +49,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <SectionWrapper>
             <Image
-              src="/images/lets talk.png"
+              src="/images/contact/contact-hiring.png"
               alt="Andus Labs workspace"
               width={500}
               height={600}

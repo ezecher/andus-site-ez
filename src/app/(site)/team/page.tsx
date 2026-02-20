@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import Button from "@/components/shared/Button";
-import TeamCard from "@/components/team/TeamCard";
+import TeamCarousel from "@/components/team/TeamCarousel";
 import VennDiagram from "@/components/team/VennDiagram";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { TEAM_MEMBERS_QUERY } from "@/sanity/lib/queries";
 import type { TeamMember } from "@/types";
 
@@ -30,25 +30,25 @@ const fallbackTeam: TeamMember[] = [
 
 // Map names to local headshot files
 const headshotMap: Record<string, string> = {
-  "Chris Perry": "/images/headshot-chris.jpg",
-  "Douglas Rushkoff": "/images/headshot-douglas.jpg",
-  "Mike Tidmarsh": "/images/headshot-mike.jpg",
-  "Danielle Fuller": "/images/headshot-danielle.jpg",
-  "Jennifer McTiernan": "/images/headshot-jennifer.jpg",
-  "Amar C. Bakshi": "/images/headshot-amar.jpg",
-  "Mark Burrell": "/images/headshot-mark.jpg",
-  "Brian Kostka": "/images/headshot-brian.png",
-  "Cindy Sato": "/images/headshot-cindy.png",
-  "Raphael Zaki": "/images/headshot-raph.png",
+  "Chris Perry": "/images/team/headshots/headshot-chris.jpg",
+  "Douglas Rushkoff": "/images/team/headshots/headshot-douglas.jpg",
+  "Mike Tidmarsh": "/images/team/headshots/headshot-mike.jpg",
+  "Danielle Fuller": "/images/team/headshots/headshot-danielle.jpg",
+  "Jennifer McTiernan": "/images/team/headshots/headshot-jennifer.jpg",
+  "Amar C. Bakshi": "/images/team/headshots/headshot-amar.jpg",
+  "Mark Burrell": "/images/team/headshots/headshot-mark.jpg",
+  "Brian Kostka": "/images/team/headshots/headshot-brian.jpg",
+  "Cindy Sato": "/images/team/headshots/headshot-cindy.jpg",
+  "Raphael Zaki": "/images/team/headshots/headshot-raph.png",
 };
 
 export default async function TeamPage() {
   let teamMembers: TeamMember[] = fallbackTeam;
 
   try {
-    const sanityData = await client.fetch(TEAM_MEMBERS_QUERY);
-    if (sanityData && sanityData.length > 0) {
-      teamMembers = sanityData;
+    const { data } = await sanityFetch({ query: TEAM_MEMBERS_QUERY });
+    if (data && data.length > 0) {
+      teamMembers = data;
     }
   } catch {
     // Use fallback data if Sanity is not configured
@@ -79,7 +79,7 @@ export default async function TeamPage() {
 
           <SectionWrapper delay={0.2} direction="right">
             <Image
-              src="/images/team image.png"
+              src="/images/team/team-header.png"
               alt="Team collaboration"
               width={600}
               height={500}
@@ -127,17 +127,8 @@ export default async function TeamPage() {
             </p>
           </SectionWrapper>
 
-          {/* Team Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            {teamMembers.map((member, i) => (
-              <SectionWrapper key={member._id} delay={i * 0.05}>
-                <TeamCard
-                  member={member}
-                  localHeadshot={headshotMap[member.name]}
-                />
-              </SectionWrapper>
-            ))}
-          </div>
+          {/* Team Carousel */}
+          <TeamCarousel members={teamMembers} headshotMap={headshotMap} />
         </div>
       </section>
 

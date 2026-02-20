@@ -4,76 +4,29 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 
-const offerings = [
-  {
-    levelRange: "Level 01 → Level 02",
-    title: "Activation Sprint",
-    description:
-      "From scattered experiments to teams building together. You leave with pilots running, not plans pending.",
-    duration: "4 weeks",
-    idealFor: "Teams 25 - 100",
-    delivers: "Team Readiness Playbook + 3 operational pilots",
-    modules: [
-      "Blocker Diagnosis",
-      "Opportunity Mapping",
-      "Day-One Builds",
-      "Team Mindset",
-    ],
-  },
-  {
-    levelRange: "Level 02 → Level 03",
-    title: "Readiness Diagnostic",
-    description:
-      "Find exactly where you\u2019re stuck. Map the gaps between AI capability and organizational capacity. Surface what\u2019s blocking acceleration.",
-    duration: "6 weeks",
-    idealFor: "Orgs 500+",
-    delivers: "Readiness Map + 90-day action plan + 2-3 working prototypes",
-    modules: [
-      "Cross-Functional Assessment",
-      "AI Stack Evaluation",
-      "Pattern Mapping",
-      "Prototype Development",
-    ],
-  },
-  {
-    levelRange: "Level 03 → Level 04",
-    title: "Value Architecture",
-    description:
-      "From promising pilots to enterprise-wide proof. Numbers that get budget approved and leadership aligned.",
-    duration: "8 weeks",
-    idealFor: "Pilot to enterprise",
-    delivers: "Value Model + Executive Business Case + Integration Playbook",
-    modules: [
-      "Value Modeling",
-      "Business Case Development",
-      "Executive Alignment",
-      "Integration Planning",
-    ],
-  },
-  {
-    levelRange: "Level 04 → Level 05",
-    title: "Transformation Design",
-    description:
-      "From integrated AI to fully rebuilt operating model. You become the case study others benchmark against.",
-    duration: "12 weeks",
-    idealFor: "Board mandate",
-    delivers:
-      "Operating Model 2.0 + Role Architecture + Governance Framework",
-    modules: [
-      "Operating Model Design",
-      "Role Architecture",
-      "Governance Framework",
-      "Change Infrastructure",
-    ],
-  },
-];
+interface Offering {
+  levelRange: string;
+  title: string;
+  description: string;
+  duration: string;
+  idealFor: string;
+  delivers: string;
+  modules: string[];
+}
+
+interface OfferingsGridProps {
+  eyebrow?: string;
+  headline?: string;
+  subtext?: string;
+  offerings: Offering[];
+}
 
 function OfferingCard({
   offering,
   index,
   isLast,
 }: {
-  offering: (typeof offerings)[number];
+  offering: Offering;
   index: number;
   isLast: boolean;
 }) {
@@ -176,19 +129,24 @@ function OfferingCard({
   );
 }
 
-export default function OfferingsGrid() {
+export default function OfferingsGrid({
+  eyebrow,
+  headline,
+  subtext,
+  offerings,
+}: OfferingsGridProps) {
   return (
     <section className="py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <SectionWrapper>
           <p className="text-cinerous text-xs tracking-wider uppercase mb-4 font-heading">
-            How We Work
+            {eyebrow || "How We Work"}
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-violet mb-2">
-            Four offerings. Each unlocks the next level.
+            {headline || "Four offerings. Each unlocks the next level."}
           </h2>
           <p className="font-heading text-xl text-zaffre/70 mb-10">
-            We don&apos;t sell hours. We sell transitions.
+            {subtext || "We don\u2019t sell hours. We sell transitions."}
           </p>
         </SectionWrapper>
 

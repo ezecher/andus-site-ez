@@ -18,13 +18,13 @@ export default function Button({
   type = "button",
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center gap-2 font-heading text-sm tracking-wide px-6 py-3 border-2 transition-all duration-300 cursor-pointer";
+    "inline-flex items-center gap-2 font-heading text-base tracking-wide px-8 py-3.5 border-2 transition-all duration-300 cursor-pointer";
 
   const variants = {
     primary:
       "bg-orange text-cream border-orange hover:bg-orange-hover hover:border-orange-hover",
     outline:
-      "bg-transparent text-violet border-periwinkle hover:bg-violet hover:text-cream hover:border-violet",
+      "bg-transparent text-violet border-violet/40 hover:bg-violet hover:text-cream hover:border-violet",
   };
 
   const styles = `${baseStyles} ${variants[variant]} ${className}`;

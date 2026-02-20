@@ -12,55 +12,22 @@ const cardStyles = [
   { bg: "bg-zaffre", border: "border-zaffre", text: "text-cream", sub: "text-cream/70", label: "text-cream/50", panelBg: "bg-zaffre/90", panelBorder: "border-zaffre/80", panelText: "text-cream", panelSub: "text-cream/70" },
 ];
 
-const levels = [
-  {
-    level: 1,
-    name: "Access",
-    valueCaptured: "5–10%",
-    valuePct: 7,
-    annualImpact: "$50–100K",
-    state: "AI deployed. Committed users are the exception.",
-    tell: '"Who\'s driving AI?" The room goes quiet.',
-  },
-  {
-    level: 2,
-    name: "Heroes",
-    valueCaptured: "15–25%",
-    valuePct: 20,
-    annualImpact: "$250–500K",
-    state: "AI working in isolated areas. Heroes, not systems.",
-    tell: '"You should talk to Sarah. She\'s figured this out."',
-  },
-  {
-    level: 3,
-    name: "Operational",
-    valueCaptured: "30–50%",
-    valuePct: 40,
-    annualImpact: "$1–2M",
-    state: "Human OS emerging. Systematic approach beginning.",
-    tell: '"What\'s the business case library look like?" It exists.',
-  },
-  {
-    level: 4,
-    name: "Integrated",
-    valueCaptured: "60–80%",
-    valuePct: 70,
-    annualImpact: "$3–5M",
-    state: "Human OS functioning. Work moves faster and gets better.",
-    tell: "Same team, half the cycle time, better output.",
-  },
-  {
-    level: 5,
-    name: "Native",
-    valueCaptured: "80–100%",
-    valuePct: 90,
-    annualImpact: "$8–15M",
-    state: "Human OS fully operational. The impossible becomes normal.",
-    tell: '"You\'re the case study others benchmark against."',
-  },
-];
+interface Level {
+  name: string;
+  valueCaptured: string;
+  valuePct: number;
+  annualImpact: string;
+  state: string;
+  tell: string;
+}
 
-export default function MaturityModel() {
+interface MaturityModelProps {
+  headline?: string;
+  subtext?: string;
+  levels: Level[];
+}
+
+export default function MaturityModel({ headline, subtext, levels }: MaturityModelProps) {
   const [revealedLevels, setRevealedLevels] = useState<Set<number>>(new Set());
 
   const revealLevel = useCallback((level: number) => {
@@ -77,39 +44,40 @@ export default function MaturityModel() {
       <div className="mx-auto max-w-7xl px-6">
         <SectionWrapper>
           <h2 className="font-heading text-3xl md:text-4xl text-zaffre/70 mb-2">
-            Andus Maturity Model
+            {headline || "Andus Maturity Model"}
           </h2>
           <p className="text-violet/70 mb-8">
-            The first framework for human + AI readiness.
+            {subtext || "The first framework for human + AI readiness."}
           </p>
         </SectionWrapper>
 
         {/* Level cards + their expand panels */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-0">
           {levels.map((level, i) => {
-            const isRevealed = revealedLevels.has(level.level);
-            const style = cardStyles[i];
+            const levelNum = i + 1;
+            const isRevealed = revealedLevels.has(levelNum);
+            const style = cardStyles[i % cardStyles.length];
             return (
-              <SectionWrapper key={level.level} delay={i * 0.08}>
+              <SectionWrapper key={level.name} delay={i * 0.08}>
                 <div className="flex flex-col h-full">
                   {/* Card */}
                   <motion.div
                     className={`relative p-5 md:p-6 border cursor-pointer transition-all flex-1 ${style.bg} ${style.border} ${style.text}`}
-                    onMouseEnter={() => revealLevel(level.level)}
-                    onClick={() => revealLevel(level.level)}
+                    onMouseEnter={() => revealLevel(levelNum)}
+                    onClick={() => revealLevel(levelNum)}
                     whileHover={{ y: -3 }}
                     transition={{ duration: 0.2 }}
                   >
                     <span
                       className={`absolute top-3 right-3 text-sm font-mono ${style.sub}`}
                     >
-                      {isRevealed ? "−" : "+"}
+                      {isRevealed ? "\u2212" : "+"}
                     </span>
 
                     <p
                       className={`text-xs tracking-wider uppercase mb-2 font-heading ${style.label}`}
                     >
-                      Level {String(level.level).padStart(2, "0")}
+                      Level {String(levelNum).padStart(2, "0")}
                     </p>
                     <h3 className="font-heading font-bold text-xl mb-3">
                       {level.name}

@@ -1,18 +1,27 @@
 import Link from "next/link";
 
-const footerNavLinks = [
-  { label: "Human OS", href: "/human-os" },
-  { label: "Approach", href: "/approach" },
-  { label: "Team", href: "/team" },
-  { label: "Field Notes", href: "/field-notes" },
-  { label: "Contact", href: "/contact" },
+interface FooterProps {
+  navLinks: { label: string; href: string }[];
+  footerText: string;
+  socialLinks: { platform: string; url: string }[];
+  contactEmail: string;
+}
+
+// Static footer-only links (Privacy, Terms) — always shown
+const staticLinks = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ];
 
-export default function Footer() {
-  const leftCol = footerNavLinks.slice(0, 4);   // Human OS, Approach, Team, Field Notes
-  const rightCol = footerNavLinks.slice(4, 7); // Contact, Privacy, Terms
+export default function Footer({
+  navLinks,
+  footerText,
+  socialLinks,
+  contactEmail,
+}: FooterProps) {
+  const allLinks = [...navLinks, ...staticLinks];
+  const leftCol = allLinks.slice(0, 4);
+  const rightCol = allLinks.slice(4);
 
   return (
     <footer className="bg-violet text-cream">
@@ -28,10 +37,32 @@ export default function Footer() {
               </Link>
             </div>
             <p className="text-cream/70 text-sm leading-relaxed max-w-md">
-              We work with commercial, NGO, and public sector organizations
-              to navigate AI transformation from strategy through
-              implementation.
+              {footerText}
             </p>
+            {/* Social Links */}
+            {socialLinks.length > 0 && (
+              <div className="flex gap-4 mt-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.platform}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cream/50 hover:text-cream text-sm font-heading transition-colors"
+                  >
+                    {social.platform}
+                  </a>
+                ))}
+              </div>
+            )}
+            {contactEmail && (
+              <a
+                href={`mailto:${contactEmail}`}
+                className="text-cream/50 hover:text-cream text-sm font-heading transition-colors block mt-2"
+              >
+                {contactEmail}
+              </a>
+            )}
           </div>
 
           {/* Right: Nav links in two columns */}

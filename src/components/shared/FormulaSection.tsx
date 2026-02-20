@@ -123,24 +123,24 @@ export default function FormulaSection() {
               <div />
 
               {/* Row 2: equation */}
-              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/60 flex justify-center">
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex justify-center">
                 AI
               </span>
-              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/40">×</span>
-              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/60 flex justify-center">
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/50">×</span>
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex justify-center">
                 human
               </span>
-              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/40">=</span>
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/50">=</span>
               <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex justify-center">
                 value
               </span>
 
               {/* Row 3: sub-labels */}
-              <span className="text-cream/50 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
+              <span className="text-cream/80 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
                 Capability
               </span>
               <div />
-              <span className="text-cream/50 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
+              <span className="text-cream/80 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
                 Readiness
               </span>
               <div />

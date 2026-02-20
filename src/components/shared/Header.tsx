@@ -5,15 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 
-const navLinks = [
-  { label: "Human OS", href: "/human-os" },
-  { label: "Approach", href: "/approach" },
-  { label: "Team", href: "/team" },
-  { label: "Field Notes", href: "/field-notes" },
-  { label: "Contact", href: "/contact" },
-];
+interface HeaderProps {
+  navLinks: { label: string; href: string }[];
+}
 
-export default function Header() {
+export default function Header({ navLinks }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
