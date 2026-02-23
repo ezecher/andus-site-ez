@@ -14,8 +14,8 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero + Form Section */}
-      <section className="py-12 md:py-20">
-        <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
+      <section className="pt-12 md:pt-20 pb-8 md:pb-12">
+        <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-12 md:gap-16 items-start">
           <SectionWrapper>
             <h1 className="font-heading text-5xl md:text-7xl font-bold leading-[1.05] text-violet mb-8">
               Let&apos;s talk.
@@ -39,68 +39,68 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="border-t border-periwinkle/30" />
-      </div>
-
-      {/* Hiring Section */}
-      <section className="py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <SectionWrapper>
-            <Image
-              src="/images/contact/contact-hiring.png"
-              alt="Andus Labs workspace"
-              width={500}
-              height={600}
-              className="w-full h-auto max-h-[400px] object-contain"
-            />
-          </SectionWrapper>
-
-          <SectionWrapper delay={0.2} direction="right">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-zaffre/70 mb-6">
-              We&apos;re hiring at the speed of AI.
-            </h2>
-            <p className="text-violet/80 leading-relaxed mb-4">
-              Machine interpreters. Agent builders. Program developers.
-              Facilitators. Researchers. Designers. Writers. Producers.
-            </p>
-            <p className="text-violet/80 leading-relaxed mb-4">
-              People who work fast, think together, and move with intention.
-              Beyond roles, we&apos;re looking for progressive minds exploring
-              AI&apos;s impact on cognition, work, media, culture, and society.
-            </p>
-            <p className="text-violet font-bold mb-8">
-              If that&apos;s you, say hello.
-            </p>
-
-            <div className="space-y-4">
-              <div>
-                <p className="text-cinerous text-xs uppercase tracking-wider">
-                  Email
-                </p>
-                <Link
-                  href="mailto:hello@anduslabs.com"
-                  className="text-zaffre font-heading hover:underline"
-                >
-                  hello@anduslabs.com
-                </Link>
+      {/* Hiring Section — image overlaps upward to reduce whitespace */}
+      <section className="pb-12 md:pb-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="border-t border-periwinkle/30 mb-8 md:mb-12" />
+          <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1fr] gap-8 md:gap-12 items-start">
+            <SectionWrapper>
+              <div className="relative w-full aspect-[5/6] md:-mt-16 overflow-hidden">
+                <Image
+                  src="/images/contact/contact-hiring.png"
+                  alt="Andus Labs workspace"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                />
               </div>
-              <div>
-                <p className="text-cinerous text-xs uppercase tracking-wider">
-                  LinkedIn
-                </p>
-                <Link
-                  href="https://linkedin.com/company/anduslabs"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-zaffre font-heading hover:underline"
-                >
-                  Andus Labs
-                </Link>
+            </SectionWrapper>
+
+            <SectionWrapper delay={0.2} direction="right">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-zaffre/70 mb-6">
+                We&apos;re hiring at the speed of AI.
+              </h2>
+              <p className="text-violet/80 leading-relaxed mb-4">
+                Machine interpreters. Agent builders. Program developers.
+                Facilitators. Researchers. Designers. Writers. Producers.
+              </p>
+              <p className="text-violet/80 leading-relaxed mb-4">
+                People who work fast, think together, and move with intention.
+                Beyond roles, we&apos;re looking for progressive minds exploring
+                AI&apos;s impact on cognition, work, media, culture, and society.
+              </p>
+              <p className="text-violet font-bold mb-8">
+                If that&apos;s you, say hello.
+              </p>
+
+              <div className="space-y-4">
+                <div>
+                  <p className="text-cinerous text-xs uppercase tracking-wider">
+                    Email
+                  </p>
+                  <Link
+                    href="mailto:hello@anduslabs.com"
+                    className="text-zaffre font-heading hover:underline"
+                  >
+                    hello@anduslabs.com
+                  </Link>
+                </div>
+                <div>
+                  <p className="text-cinerous text-xs uppercase tracking-wider">
+                    LinkedIn
+                  </p>
+                  <Link
+                    href="https://linkedin.com/company/anduslabs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-zaffre font-heading hover:underline"
+                  >
+                    Andus Labs
+                  </Link>
+                </div>
               </div>
-            </div>
-          </SectionWrapper>
+            </SectionWrapper>
+          </div>
         </div>
       </section>
     </>

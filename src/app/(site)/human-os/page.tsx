@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import Button from "@/components/shared/Button";
+import AnimatedStatBox from "@/components/human-os/AnimatedStatBox";
+import AnimatedLevers from "@/components/human-os/AnimatedLevers";
 import { sanityFetch } from "@/sanity/lib/live";
 import { HUMAN_OS_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { HumanOsPage } from "@/types";
@@ -154,56 +156,23 @@ export default async function HumanOSPage() {
             )}
           </SectionWrapper>
 
-          {/* Statistics visualization */}
-          <SectionWrapper delay={0.2} direction="right">
-            <div className="bg-cream border border-periwinkle p-8 md:p-12">
-              <div className="space-y-8">
-                <div className="text-center">
-                  <p className="text-orange font-heading text-5xl md:text-6xl font-bold">
-                    {p.statHeadline}
-                  </p>
-                  <p className="text-orange text-xs tracking-wider uppercase mt-2">
-                    {p.statLabel}
-                  </p>
-                </div>
-
-                <div className="relative h-24 bg-violet rounded">
-                  <div
-                    className="absolute bottom-0 left-0 h-full bg-zaffre rounded"
-                    style={{ width: `${p.statBarPercent ?? 5}%` }}
-                  />
-                </div>
-
-                <div className="flex justify-between text-sm">
-                  <div>
-                    <p className="font-heading font-bold text-xl">
-                      {p.statLeftValue}
-                    </p>
-                    <p className="text-cinerous text-xs uppercase tracking-wider">
-                      {p.statLeftLabel}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-heading font-bold text-xl">
-                      {p.statRightValue}
-                    </p>
-                    <p className="text-cinerous text-xs uppercase tracking-wider">
-                      {p.statRightLabel}
-                    </p>
-                  </div>
-                </div>
-
-                {p.statSource && (
-                  <p className="text-cinerous text-xs">{p.statSource}</p>
-                )}
-              </div>
-            </div>
-          </SectionWrapper>
+          {/* Statistics visualization — animated */}
+          <AnimatedStatBox
+            statHeadline={p.statHeadline}
+            statLabel={p.statLabel}
+            statLeftValue={p.statLeftValue}
+            statLeftLabel={p.statLeftLabel}
+            statRightValue={p.statRightValue}
+            statRightLabel={p.statRightLabel}
+            statBarPercent={p.statBarPercent}
+            statSource={p.statSource}
+          />
         </div>
       </section>
 
-      {/* Five Levers Section */}
-      <section className="bg-violet text-cream py-12 md:py-16">
+      {/* Five Levers + Bottom CTA — single violet block */}
+      <section className="bg-violet text-cream py-12 md:py-20">
+        {/* Levers header */}
         <div className="mx-auto max-w-7xl px-6">
           <SectionWrapper>
             {p.leversEyebrow && (
@@ -215,43 +184,28 @@ export default async function HumanOSPage() {
               {p.leversHeadline}
             </h2>
             {p.leversSubtext && (
-              <p className="text-cream/70 mb-8 max-w-2xl">{p.leversSubtext}</p>
+              <p className="text-cream/70 mb-10 max-w-2xl">{p.leversSubtext}</p>
             )}
           </SectionWrapper>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-            {levers.map((lever, i) => (
-              <SectionWrapper key={lever.title} delay={i * 0.1}>
-                <div className="relative">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-3 h-3 rounded-full bg-orange" />
-                    {i < levers.length - 1 && (
-                      <div className="hidden lg:block flex-1 h-px bg-cream/20" />
-                    )}
-                  </div>
-                  <h3 className="font-heading font-bold text-lg mb-2">
-                    {lever.title}
-                  </h3>
-                  <p className="text-cream/60 text-sm leading-relaxed">
-                    {lever.description}
-                  </p>
-                </div>
-              </SectionWrapper>
-            ))}
-          </div>
+          {/* Animated levers */}
+          <AnimatedLevers levers={levers} />
         </div>
-      </section>
 
-      {/* Bottom CTA Section */}
-      <section className="py-12 md:py-16">
+        {/* Divider */}
+        <div className="mx-auto max-w-7xl px-6 my-12 md:my-16">
+          <div className="h-px bg-cream/10" />
+        </div>
+
+        {/* Bottom CTA */}
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <SectionWrapper>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-violet mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-cream mb-4">
               {p.bottomHeadline}
             </h2>
             {p.bottomCtaLabel && p.bottomCtaHref && (
               <div className="mt-8">
-                <Button href={p.bottomCtaHref}>
+                <Button href={p.bottomCtaHref} variant="outline-light">
                   {p.bottomCtaLabel} &nbsp;&rsaquo;
                 </Button>
               </div>
@@ -259,21 +213,28 @@ export default async function HumanOSPage() {
           </SectionWrapper>
 
           <SectionWrapper delay={0.2} direction="right">
-            <div className="text-violet/80 space-y-4">
+            <div className="space-y-1">
               {bottomBody.map((para, i) => (
-                <p key={i} className={para.bold ? "font-bold" : ""}>
+                <p
+                  key={i}
+                  className={
+                    para.bold
+                      ? "font-bold text-cream"
+                      : "text-periwinkle"
+                  }
+                >
                   {para.text}
                 </p>
               ))}
               {(p.bottomCallout || p.bottomCalloutSub) && (
-                <div className="mt-6">
+                <div className="pt-6">
                   {p.bottomCallout && (
-                    <p className="font-heading font-bold text-violet">
+                    <p className="font-heading font-bold text-cream">
                       {p.bottomCallout}
                     </p>
                   )}
                   {p.bottomCalloutSub && (
-                    <p className="text-cinerous text-sm">
+                    <p className="text-periwinkle/70 text-sm">
                       {p.bottomCalloutSub}
                     </p>
                   )}

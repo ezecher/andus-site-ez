@@ -128,13 +128,15 @@ export default async function FieldNotesPage() {
             </h1>
           </SectionWrapper>
           <SectionWrapper delay={0.2}>
-            <Image
-              src="/images/field-notes/field-notes-banner.jpg"
-              alt="Andus Labs Guild"
-              width={1200}
-              height={400}
-              className="w-full h-auto"
-            />
+            <div className="relative w-full h-[280px] md:h-[360px] overflow-hidden">
+              <Image
+                src="/images/field-notes/field-notes-banner.jpg"
+                alt="Andus Labs Guild"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1280px) 100vw, 1280px"
+              />
+            </div>
           </SectionWrapper>
         </div>
       </section>

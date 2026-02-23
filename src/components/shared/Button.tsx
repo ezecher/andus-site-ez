@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface ButtonProps {
-  variant?: "primary" | "outline";
+  variant?: "primary" | "outline" | "outline-light";
   href?: string;
   onClick?: () => void;
   children: React.ReactNode;
@@ -25,6 +25,8 @@ export default function Button({
       "bg-orange text-cream border-orange hover:bg-orange-hover hover:border-orange-hover",
     outline:
       "bg-transparent text-violet border-violet/40 hover:bg-violet hover:text-cream hover:border-violet",
+    "outline-light":
+      "bg-transparent text-cream border-cream/40 hover:bg-cream hover:text-violet hover:border-cream",
   };
 
   const styles = `${baseStyles} ${variants[variant]} ${className}`;
