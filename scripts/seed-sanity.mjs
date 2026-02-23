@@ -42,16 +42,16 @@ async function uploadFile(relativePath, filename) {
 // ── Team Members ─────────────────────────────────────────────────────────────
 
 const teamMembers = [
-  { name: "Chris Perry", roleTagline: "Lab Builder", title: "IPG, Weber Shandwick", image: "/images/team/headshots/headshot-chris.jpg", sortOrder: 1 },
-  { name: "Douglas Rushkoff", roleTagline: "Human Advocate", title: "CUNY, PBS Frontline", image: "/images/team/headshots/headshot-douglas.jpg", sortOrder: 2 },
-  { name: "Mike Tidmarsh", roleTagline: "Change Architect", title: "Ogilvy, Deloitte", image: "/images/team/headshots/headshot-mike.jpg", sortOrder: 3 },
-  { name: "Danielle Fuller", roleTagline: "Client Strategy", title: "Ogilvy, Victors & Spoils", image: "/images/team/headshots/headshot-danielle.jpg", sortOrder: 4 },
-  { name: "Jennifer McTiernan", roleTagline: "Guardrail Builder", title: "Block, Yale Law", image: "/images/team/headshots/headshot-jennifer.jpg", sortOrder: 5 },
-  { name: "Amar C. Bakshi", roleTagline: "Connection Artist", title: "Shared Studios, U.S. State Department", image: "/images/team/headshots/headshot-amar.jpg", sortOrder: 6 },
-  { name: "Mark Burrell", roleTagline: "Community Platforms", title: "Tongal, Weldon", image: "/images/team/headshots/headshot-mark.jpg", sortOrder: 7 },
-  { name: "Brian Kostka", roleTagline: "Finance", title: "UBS, BNY Mellon, AMG", image: "/images/team/headshots/headshot-brian.jpg", sortOrder: 8 },
-  { name: "Cindy Sato", roleTagline: "Experience Design", title: "Nike, Weber Shandwick", image: "/images/team/headshots/headshot-cindy.jpg", sortOrder: 9 },
-  { name: "Raphael Zaki", roleTagline: "Applied AI", title: "Fortune, Alpha Insights", image: "/images/team/headshots/headshot-raph.png", sortOrder: 10 },
+  { name: "Chris Perry", roleTagline: "AI Advisor", title: "IPG, Weber Shandwick", image: "/images/team/headshots/headshot-chris.jpg", sortOrder: 1 },
+  { name: "Mike Tidmarsh", roleTagline: "AI Architect", title: "Ogilvy, Deloitte", image: "/images/team/headshots/headshot-mike.jpg", sortOrder: 2 },
+  { name: "Danielle Fuller", roleTagline: "Client Strategy", title: "Ogilvy, Victors & Spoils", image: "/images/team/headshots/headshot-danielle.jpg", sortOrder: 3 },
+  { name: "Raphael Zaki", roleTagline: "Applied AI", title: "Fortune, Alpha Insights", image: "/images/team/headshots/headshot-raph.png", sortOrder: 4 },
+  { name: "Brian Kostka", roleTagline: "Finance", title: "UBS, BNY Mellon, AMG", image: "/images/team/headshots/headshot-brian.jpg", sortOrder: 5 },
+  { name: "Douglas Rushkoff", roleTagline: "Media Theorist", title: "CUNY, PBS Frontline", image: "/images/team/headshots/headshot-douglas.jpg", sortOrder: 6 },
+  { name: "Amar C. Bakshi", roleTagline: "Cultural Strategy", title: "Shared Studios, U.S. State Department", image: "/images/team/headshots/headshot-amar.jpg", sortOrder: 7 },
+  { name: "Jennifer McTiernan", roleTagline: "Law & Ethics", title: "Block, Yale Law", image: "/images/team/headshots/headshot-jennifer.jpg", sortOrder: 8 },
+  { name: "Mark Burrell", roleTagline: "Community Platforms", title: "Tongal, Weldon", image: "/images/team/headshots/headshot-mark.jpg", sortOrder: 9 },
+  { name: "Cindy Sato", roleTagline: "Experience Design", title: "Nike, Weber Shandwick", image: "/images/team/headshots/headshot-cindy.jpg", sortOrder: 10 },
 ];
 
 // ── Field Notes ──────────────────────────────────────────────────────────────

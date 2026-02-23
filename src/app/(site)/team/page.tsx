@@ -16,30 +16,30 @@ export const metadata: Metadata = {
 
 // Fallback team data when Sanity is not configured
 const fallbackTeam: TeamMember[] = [
-  { _id: "1", name: "Chris Perry", roleTagline: "Lab Builder", title: "IPG, Weber Shandwick", headshot: "", sortOrder: 1 },
-  { _id: "2", name: "Douglas Rushkoff", roleTagline: "Human Advocate", title: "CUNY, PBS Frontline", headshot: "", sortOrder: 2 },
-  { _id: "3", name: "Mike Tidmarsh", roleTagline: "Change Architect", title: "Ogilvy, Deloitte", headshot: "", sortOrder: 3 },
-  { _id: "4", name: "Danielle Fuller", roleTagline: "Client Strategy", title: "Ogilvy, Victors & Spoils", headshot: "", sortOrder: 4 },
-  { _id: "5", name: "Jennifer McTiernan", roleTagline: "Guardrail Builder", title: "Block, Yale Law", headshot: "", sortOrder: 5 },
-  { _id: "6", name: "Amar C. Bakshi", roleTagline: "Connection Artist", title: "Shared Studios, U.S. State Department", headshot: "", sortOrder: 6 },
-  { _id: "7", name: "Mark Burrell", roleTagline: "Community Platforms", title: "Tongal, Weldon", headshot: "", sortOrder: 7 },
-  { _id: "8", name: "Brian Kostka", roleTagline: "Finance", title: "UBS, BNY Mellon, AMG", headshot: "", sortOrder: 8 },
-  { _id: "9", name: "Cindy Sato", roleTagline: "Experience Design", title: "Nike, Weber Shandwick", headshot: "", sortOrder: 9 },
-  { _id: "10", name: "Raphael Zaki", roleTagline: "Applied AI", title: "Fortune, Alpha Insights", headshot: "", sortOrder: 10 },
+  { _id: "1", name: "Chris Perry", roleTagline: "AI Advisor", title: "IPG, Weber Shandwick", headshot: "", sortOrder: 1 },
+  { _id: "2", name: "Mike Tidmarsh", roleTagline: "AI Architect", title: "Ogilvy, Deloitte", headshot: "", sortOrder: 2 },
+  { _id: "3", name: "Danielle Fuller", roleTagline: "Client Strategy", title: "Ogilvy, Victors & Spoils", headshot: "", sortOrder: 3 },
+  { _id: "4", name: "Raphael Zaki", roleTagline: "Applied AI", title: "Fortune, Alpha Insights", headshot: "", sortOrder: 4 },
+  { _id: "5", name: "Brian Kostka", roleTagline: "Finance", title: "UBS, BNY Mellon, AMG", headshot: "", sortOrder: 5 },
+  { _id: "6", name: "Douglas Rushkoff", roleTagline: "Media Theorist", title: "CUNY, PBS Frontline", headshot: "", sortOrder: 6 },
+  { _id: "7", name: "Amar C. Bakshi", roleTagline: "Cultural Strategy", title: "Shared Studios, U.S. State Department", headshot: "", sortOrder: 7 },
+  { _id: "8", name: "Jennifer McTiernan", roleTagline: "Law & Ethics", title: "Block, Yale Law", headshot: "", sortOrder: 8 },
+  { _id: "9", name: "Mark Burrell", roleTagline: "Community Platforms", title: "Tongal, Weldon", headshot: "", sortOrder: 9 },
+  { _id: "10", name: "Cindy Sato", roleTagline: "Experience Design", title: "Nike, Weber Shandwick", headshot: "", sortOrder: 10 },
 ];
 
 // Map names to local headshot files
 const headshotMap: Record<string, string> = {
   "Chris Perry": "/images/team/headshots/headshot-chris.jpg",
-  "Douglas Rushkoff": "/images/team/headshots/headshot-douglas.jpg",
   "Mike Tidmarsh": "/images/team/headshots/headshot-mike.jpg",
   "Danielle Fuller": "/images/team/headshots/headshot-danielle.jpg",
-  "Jennifer McTiernan": "/images/team/headshots/headshot-jennifer.jpg",
-  "Amar C. Bakshi": "/images/team/headshots/headshot-amar.jpg",
-  "Mark Burrell": "/images/team/headshots/headshot-mark.jpg",
-  "Brian Kostka": "/images/team/headshots/headshot-brian.jpg",
-  "Cindy Sato": "/images/team/headshots/headshot-cindy.jpg",
   "Raphael Zaki": "/images/team/headshots/headshot-raph.png",
+  "Brian Kostka": "/images/team/headshots/headshot-brian.jpg",
+  "Douglas Rushkoff": "/images/team/headshots/headshot-douglas.jpg",
+  "Amar C. Bakshi": "/images/team/headshots/headshot-amar.jpg",
+  "Jennifer McTiernan": "/images/team/headshots/headshot-jennifer.jpg",
+  "Mark Burrell": "/images/team/headshots/headshot-mark.jpg",
+  "Cindy Sato": "/images/team/headshots/headshot-cindy.jpg",
 };
 
 export default async function TeamPage() {
