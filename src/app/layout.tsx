@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Archivo, Syne } from "next/font/google";
+import { Archivo } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -8,10 +9,16 @@ const archivo = Archivo({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-const syne = Syne({
+const syne = localFont({
+  src: [
+    { path: "../fonts/syne/static/Syne-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/syne/static/Syne-Medium.ttf", weight: "500", style: "normal" },
+    { path: "../fonts/syne/static/Syne-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "../fonts/syne/static/Syne-Bold.ttf", weight: "700", style: "normal" },
+    { path: "../fonts/syne/static/Syne-ExtraBold.ttf", weight: "800", style: "normal" },
+  ],
   variable: "--font-syne",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {

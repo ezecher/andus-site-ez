@@ -45,8 +45,10 @@ export default async function SiteLayout({
 
   return (
     <>
-      <Header navLinks={navLinks} />
-      <main className="min-h-screen grid-bg">{children}</main>
+      <div className="grid-bg">
+        <Header navLinks={navLinks} />
+        <main className="min-h-screen">{children}</main>
+      </div>
       <Footer
         navLinks={navLinks}
         footerText={footerText}

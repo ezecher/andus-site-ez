@@ -2,7 +2,11 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
+
+// Map offering index to maturity model icon names
+const offeringIcons = ["heroes", "operational", "integrated", "native"];
 
 interface Offering {
   levelRange: string;
@@ -52,13 +56,25 @@ function OfferingCard({
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {isInView ? (
-            <div className="w-10 h-10 rounded-full bg-orange flex items-center justify-center">
-              <span className="text-cream font-heading font-bold text-sm">
-                {index + 1}
-              </span>
+            <div className="w-14 h-14 rounded-full bg-orange flex items-center justify-center">
+              <Image
+                src={`/images/approach/icons/approach-maturity-model-${offeringIcons[index] || "heroes"}-ivory.svg`}
+                alt=""
+                width={40}
+                height={40}
+                className="w-9 h-9"
+              />
             </div>
           ) : (
-            <div className="w-3 h-3 rounded-full bg-zaffre/40" />
+            <div className="w-14 h-14 rounded-full bg-cinerous/30 flex items-center justify-center">
+              <Image
+                src={`/images/approach/icons/approach-maturity-model-${offeringIcons[index] || "heroes"}-zaffre.svg`}
+                alt=""
+                width={40}
+                height={40}
+                className="w-9 h-9"
+              />
+            </div>
           )}
         </motion.div>
         {!isLast && (
@@ -74,35 +90,35 @@ function OfferingCard({
         <h3 className="font-heading text-2xl md:text-3xl font-bold text-violet mb-3">
           {offering.title}
         </h3>
-        <p className="text-violet/70 text-sm leading-relaxed">
+        <p className="text-violet/70 text-base leading-relaxed">
           {offering.description}
         </p>
       </div>
 
       {/* Column 2: Delivers / Duration / Ideal For */}
       <div className="pb-12 md:pb-16 col-start-2 md:col-start-auto">
-        <div className="space-y-4">
+        <div className="space-y-5">
           <div>
-            <p className="text-xs text-cinerous uppercase tracking-wider mb-1 font-heading">
+            <p className="text-xs text-zaffre uppercase tracking-wider mb-1 font-bold">
               Delivers
             </p>
-            <p className="text-violet text-sm font-medium">
+            <p className="text-violet text-base">
               {offering.delivers}
             </p>
           </div>
           <div>
-            <p className="text-xs text-cinerous uppercase tracking-wider mb-1 font-heading">
+            <p className="text-xs text-zaffre uppercase tracking-wider mb-1 font-bold">
               Duration
             </p>
-            <p className="text-violet text-sm font-medium">
+            <p className="text-violet text-base">
               {offering.duration}
             </p>
           </div>
           <div>
-            <p className="text-xs text-cinerous uppercase tracking-wider mb-1 font-heading">
+            <p className="text-xs text-zaffre uppercase tracking-wider mb-1 font-bold">
               Ideal For
             </p>
-            <p className="text-violet text-sm font-medium">
+            <p className="text-violet text-base">
               {offering.idealFor}
             </p>
           </div>
@@ -111,14 +127,14 @@ function OfferingCard({
 
       {/* Column 3: Modules */}
       <div className="pb-12 md:pb-16 col-start-2 md:col-start-auto">
-        <p className="text-xs text-cinerous uppercase tracking-wider mb-2 font-heading">
+        <p className="text-xs text-zaffre uppercase tracking-wider mb-3 font-bold">
           Modules
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col gap-2.5">
           {offering.modules.map((mod) => (
             <span
               key={mod}
-              className="text-xs px-3 py-1.5 rounded-full border border-periwinkle text-violet font-heading bg-periwinkle/20"
+              className="text-sm px-4 py-2 rounded-full border border-periwinkle/80 text-zaffre font-medium bg-periwinkle/40 w-fit"
             >
               {mod}
             </span>
@@ -139,7 +155,7 @@ export default function OfferingsGrid({
     <section className="py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <SectionWrapper>
-          <p className="text-cinerous text-xs tracking-wider uppercase mb-4 font-heading">
+          <p className="text-zaffre text-xs tracking-wider uppercase mb-4">
             {eyebrow || "How We Work"}
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-violet mb-2">

@@ -75,7 +75,7 @@ export default async function ApproachPageRoute() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-6 md:pt-8 pb-0">
+      <section className="pt-6 md:pt-8 pb-0 guide-line-b guide-vline-center">
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <SectionWrapper>
             <h1 className="font-heading text-6xl md:text-8xl font-bold leading-[1.0] text-violet mb-6">
@@ -116,30 +116,40 @@ export default async function ApproachPageRoute() {
       />
 
       {/* Readiness Tax Warning */}
-      <section className="bg-violet text-cream py-10">
-        <div className="mx-auto max-w-7xl px-6">
+      <section className="bg-violet text-cream py-14 md:py-20 relative overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M20 14v12M14 20h12' stroke='%237884FF' stroke-width='1.5' fill='none' opacity='0.3'/%3E%3C/svg%3E")`,
+            backgroundRepeat: "repeat",
+          }}
+        />
+        <div className="mx-auto max-w-7xl px-6 relative z-10">
           <SectionWrapper>
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 border-2 border-orange rounded-full flex items-center justify-center">
-                  <span className="text-orange text-2xl">!</span>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16">
+              {/* Left: icon + text */}
+              <div className="flex items-center gap-5 flex-shrink-0">
+                <div className="w-14 h-14 md:w-16 md:h-16 border-2 border-orange rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-orange text-xl md:text-2xl font-bold">!</span>
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-xl md:text-2xl">
+                    {p.taxHeadline || fallback.taxHeadline}
+                  </h3>
+                  <p className="text-cream/90 text-sm mt-1">
+                    {p.taxSubtext || fallback.taxSubtext}
+                  </p>
                 </div>
               </div>
-              <div>
-                <h3 className="font-heading font-bold text-lg mb-2">
-                  {p.taxHeadline || fallback.taxHeadline}
-                </h3>
-                <p className="text-cream/70 text-sm">
-                  {p.taxSubtext || fallback.taxSubtext}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-8 ml-auto">
+
+              {/* Right: stat columns */}
+              <div className="flex gap-10 md:gap-14 md:ml-auto">
                 {taxStats.map((stat, i) => (
-                  <div key={i}>
-                    <p className="font-heading font-bold text-orange text-lg">
+                  <div key={i} className="text-center">
+                    <p className="font-bold text-orange text-3xl md:text-4xl leading-tight">
                       {stat.value}
                     </p>
-                    <p className="text-cream/60 text-xs">{stat.label}</p>
+                    <p className="text-cream/85 text-sm mt-1">{stat.label}</p>
                   </div>
                 ))}
               </div>

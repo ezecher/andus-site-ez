@@ -20,16 +20,3 @@ export const FIELD_NOTES_QUERY = `*[_type == "fieldNoteItem"] | order(sortOrder 
   featured,
   sortOrder
 }`;
-
-export const FEATURED_NOTES_QUERY = `*[_type == "fieldNoteItem" && featured == true] | order(sortOrder asc) {
-  _id,
-  type,
-  seriesLabel,
-  title,
-  description,
-  "coverImageUrl": coverImage.asset->url,
-  externalUrl,
-  "pdfUrl": assetPdf.asset->url,
-  featured,
-  sortOrder
-}`;

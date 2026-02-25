@@ -109,7 +109,7 @@ export default function AnimatedStatBox({
     : "";
 
   return (
-    <div ref={containerRef} className="bg-cream border border-periwinkle p-8 md:p-12">
+    <div ref={containerRef} className="bg-cream p-8 md:p-12 md:ml-8">
       <div className="space-y-4">
         {/* Headline - $190B UNREALIZED */}
         <div className="text-center" style={{ minHeight: "5.5rem" }}>
@@ -118,7 +118,7 @@ export default function AnimatedStatBox({
             animate={phase >= 3 ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <p className="text-orange font-heading text-5xl md:text-6xl font-bold">
+            <p className="text-orange font-body text-5xl md:text-6xl">
               {phase >= 3 ? (
                 <>
                   $
@@ -204,10 +204,10 @@ export default function AnimatedStatBox({
             animate={phase >= 2 ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <p className="font-heading font-bold text-2xl text-violet">
+            <p className="font-body text-2xl text-violet">
               {statLeftValue}
             </p>
-            <p className="text-violet text-[10px] uppercase tracking-[0.15em] font-extrabold leading-tight mt-1">
+            <p className="text-violet text-[10px] uppercase tracking-[0.15em] font-bold leading-tight mt-1">
               {statLeftLabel}
             </p>
           </motion.div>
@@ -218,10 +218,10 @@ export default function AnimatedStatBox({
             animate={phase >= 1 ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
           >
-            <p className="font-heading font-bold text-2xl text-violet">
+            <p className="font-body text-2xl text-violet">
               {statRightValue}
             </p>
-            <p className="text-violet text-[10px] uppercase tracking-[0.15em] font-extrabold leading-tight mt-1">
+            <p className="text-violet text-[10px] uppercase tracking-[0.15em] font-bold leading-tight mt-1">
               {statRightLabel}
             </p>
           </motion.div>

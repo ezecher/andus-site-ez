@@ -92,8 +92,17 @@ export default function FormulaSection() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="bg-violet text-cream py-12 md:py-16">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="bg-violet text-cream py-10 md:py-12 relative overflow-hidden">
+      <div className="absolute inset-0 flex justify-center">
+        <div
+          className="w-full max-w-3xl h-full"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M18 15v6M15 18h6' stroke='%237884FF' stroke-width='0.75' fill='none' opacity='0.35'/%3E%3C/svg%3E")`,
+            backgroundRepeat: "repeat",
+          }}
+        />
+      </div>
+      <div className="mx-auto max-w-7xl px-6 relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
@@ -102,7 +111,7 @@ export default function FormulaSection() {
         >
           <div className="flex flex-col items-center">
             <div
-              className="grid items-baseline gap-x-3 sm:gap-x-6 md:gap-x-10 gap-y-0 text-center font-mono tracking-tight w-full"
+              className="grid items-baseline gap-x-2 sm:gap-x-3 md:gap-x-5 gap-y-0 text-center font-mono tracking-tight max-w-2xl w-full mx-auto"
               style={{ gridTemplateColumns: "1fr auto 1fr auto 1fr" }}
             >
               {/* Row 1: "You've got" label + arrow — fade in together */}
@@ -112,7 +121,7 @@ export default function FormulaSection() {
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
               >
-                <span className="text-orange text-[10px] sm:text-sm font-heading tracking-wider uppercase">
+                <span className="text-orange text-[10px] sm:text-sm font-body tracking-wider uppercase">
                   You&apos;ve got
                 </span>
                 <CurvedArrow direction="down" delay={0.8} isInView={isInView} />
@@ -156,7 +165,7 @@ export default function FormulaSection() {
                 transition={{ duration: 0.5, delay: 1.4, ease: "easeOut" }}
               >
                 <CurvedArrow direction="up" delay={1.6} isInView={isInView} />
-                <span className="text-orange text-[10px] sm:text-sm font-heading tracking-wider uppercase">
+                <span className="text-orange text-[10px] sm:text-sm font-body tracking-wider uppercase">
                   we solve for
                 </span>
               </motion.div>

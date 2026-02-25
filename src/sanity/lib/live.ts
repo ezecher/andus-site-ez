@@ -2,14 +2,8 @@ import { defineLive } from "next-sanity/live";
 import { client } from "./client";
 
 const token = process.env.SANITY_API_TOKEN;
-if (!token) {
-  throw new Error(
-    "Missing SANITY_API_TOKEN. Create a token in your Sanity project's API settings."
-  );
-}
 
 export const { sanityFetch, SanityLive } = defineLive({
   client,
-  serverToken: token,
-  browserToken: token,
+  ...(token ? { serverToken: token, browserToken: token } : {}),
 });

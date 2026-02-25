@@ -14,7 +14,7 @@ export default function Header({ navLinks }: HeaderProps) {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-periwinkle/30">
+    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm guide-line-t guide-line-b guide-vlines">
       <nav className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
         <Logo />
 

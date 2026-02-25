@@ -9,7 +9,9 @@
   --color-indigo: #7884FF;
   --color-orange: #FF4F01;
   --color-orange-hover: #e54600;
+}
 
+@theme inline {
   --font-body: var(--font-archivo);
   --font-heading: var(--font-syne);
 }
@@ -21,15 +23,60 @@
 }
 
 body {
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-archivo, sans-serif);
 }
 
-/* Grid background pattern matching the original site */
+/* Layout guide frame — box aligned with content area */
 .grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(220, 214, 247, 0.25) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(220, 214, 247, 0.25) 1px, transparent 1px);
-  background-size: calc(100vw / 6) calc(100vh / 8);
+  position: relative;
+}
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: max(0.75rem, calc((100% - 86rem) / 2));
+  right: max(0.75rem, calc((100% - 86rem) / 2));
+  pointer-events: none;
+  z-index: 1;
+  border-left: 1px solid rgba(120, 132, 255, 0.6);
+  border-right: 1px solid rgba(120, 132, 255, 0.6);
+}
+
+/* Vertical guide lines — for elements that sit above the main grid-bg (e.g. sticky header) */
+.guide-vlines {
+  position: relative;
+}
+.guide-vlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: max(0.75rem, calc((100% - 86rem) / 2));
+  right: max(0.75rem, calc((100% - 86rem) / 2));
+  pointer-events: none;
+  z-index: 51;
+  border-left: 1px solid rgba(120, 132, 255, 0.6);
+  border-right: 1px solid rgba(120, 132, 255, 0.6);
+}
+
+/* Horizontal guide line — add to sections as top/bottom border */
+.guide-line-t { border-top: 1px solid rgba(120, 132, 255, 0.6); }
+.guide-line-b { border-bottom: 1px solid rgba(120, 132, 255, 0.6); }
+
+/* Vertical center divider for two-column sections */
+.guide-vline-center {
+  position: relative;
+}
+.guide-vline-center::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(120, 132, 255, 0.6);
+  pointer-events: none;
 }
 
 /* Hover underline animation for nav links */

@@ -2,14 +2,24 @@
 
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 
+// Map level names to their icon filenames (lowercase, kebab-case)
+const levelIcons: Record<string, string> = {
+  Access: "access",
+  Heroes: "heroes",
+  Operational: "operational",
+  Integrated: "integrated",
+  Native: "native",
+};
+
 const cardStyles = [
-  { bg: "bg-periwinkle/30", border: "border-periwinkle/50", text: "text-violet", sub: "text-violet/60", label: "text-cinerous", panelBg: "bg-periwinkle/20", panelBorder: "border-periwinkle/40", panelText: "text-violet", panelSub: "text-violet/70" },
-  { bg: "bg-periwinkle/50", border: "border-periwinkle/60", text: "text-violet", sub: "text-violet/70", label: "text-cinerous", panelBg: "bg-periwinkle/30", panelBorder: "border-periwinkle/50", panelText: "text-violet", panelSub: "text-violet/70" },
-  { bg: "bg-zaffre/70", border: "border-zaffre/60", text: "text-cream", sub: "text-cream/70", label: "text-cream/50", panelBg: "bg-zaffre/60", panelBorder: "border-zaffre/50", panelText: "text-cream", panelSub: "text-cream/70" },
-  { bg: "bg-zaffre/85", border: "border-zaffre/70", text: "text-cream", sub: "text-cream/70", label: "text-cream/50", panelBg: "bg-zaffre/75", panelBorder: "border-zaffre/60", panelText: "text-cream", panelSub: "text-cream/70" },
-  { bg: "bg-zaffre", border: "border-zaffre", text: "text-cream", sub: "text-cream/70", label: "text-cream/50", panelBg: "bg-zaffre/90", panelBorder: "border-zaffre/80", panelText: "text-cream", panelSub: "text-cream/70" },
+  { bg: "bg-periwinkle/30", border: "border-periwinkle/50", text: "text-zaffre", sub: "text-zaffre/70", label: "text-zaffre/60", panelBg: "bg-periwinkle/20", panelBorder: "border-periwinkle/40", panelText: "text-zaffre", panelSub: "text-zaffre/70", divider: "border-zaffre/20" },
+  { bg: "bg-periwinkle/50", border: "border-periwinkle/60", text: "text-zaffre", sub: "text-zaffre/70", label: "text-zaffre/60", panelBg: "bg-periwinkle/30", panelBorder: "border-periwinkle/50", panelText: "text-zaffre", panelSub: "text-zaffre/70", divider: "border-zaffre/20" },
+  { bg: "bg-zaffre/70", border: "border-zaffre/60", text: "text-white", sub: "text-white/90", label: "text-white/80", panelBg: "bg-zaffre/60", panelBorder: "border-zaffre/50", panelText: "text-white", panelSub: "text-white/85", divider: "border-white/20" },
+  { bg: "bg-zaffre/85", border: "border-zaffre/70", text: "text-white", sub: "text-white/90", label: "text-white/80", panelBg: "bg-zaffre/75", panelBorder: "border-zaffre/60", panelText: "text-white", panelSub: "text-white/85", divider: "border-white/20" },
+  { bg: "bg-zaffre", border: "border-zaffre", text: "text-white", sub: "text-white/90", label: "text-white/80", panelBg: "bg-zaffre/90", panelBorder: "border-zaffre/80", panelText: "text-white", panelSub: "text-white/85", divider: "border-white/20" },
 ];
 
 interface Level {
@@ -62,7 +72,7 @@ export default function MaturityModel({ headline, subtext, levels }: MaturityMod
                 <div className="flex flex-col h-full">
                   {/* Card */}
                   <motion.div
-                    className={`relative p-5 md:p-6 border cursor-pointer transition-all flex-1 ${style.bg} ${style.border} ${style.text}`}
+                    className={`relative p-6 md:p-7 border cursor-pointer transition-all flex-1 ${style.bg} ${style.border} ${style.text}`}
                     onMouseEnter={() => revealLevel(levelNum)}
                     onClick={() => revealLevel(levelNum)}
                     whileHover={{ y: -3 }}
@@ -74,15 +84,28 @@ export default function MaturityModel({ headline, subtext, levels }: MaturityMod
                       {isRevealed ? "\u2212" : "+"}
                     </span>
 
+                    {/* Level icon */}
+                    {levelIcons[level.name] && (
+                      <div className="mb-6">
+                        <Image
+                          src={`/images/approach/icons/approach-maturity-model-${levelIcons[level.name]}-${i < 2 ? "zaffre" : "ivory"}.svg`}
+                          alt={`${level.name} icon`}
+                          width={80}
+                          height={80}
+                          className="w-20 h-20"
+                        />
+                      </div>
+                    )}
+
                     <p
-                      className={`text-xs tracking-wider uppercase mb-2 font-heading ${style.label}`}
+                      className={`text-sm tracking-wider uppercase mb-2 font-heading ${style.label}`}
                     >
                       Level {String(levelNum).padStart(2, "0")}
                     </p>
-                    <h3 className="font-heading font-bold text-xl mb-3">
+                    <h3 className="font-heading font-bold text-xl md:text-2xl mb-2">
                       {level.name}
                     </h3>
-                    <p className={`text-sm leading-relaxed ${style.sub}`}>
+                    <p className={`text-sm leading-snug ${style.sub}`}>
                       {level.state}
                     </p>
                   </motion.div>
@@ -99,19 +122,19 @@ export default function MaturityModel({ headline, subtext, levels }: MaturityMod
                     className="overflow-hidden"
                   >
                     <div
-                      className={`p-4 md:p-5 border border-t-0 ${style.panelBg} ${style.panelBorder}`}
+                      className={`p-5 md:p-6 border border-t-0 ${style.panelBg} ${style.panelBorder}`}
                     >
-                      <div className="space-y-4">
-                        <div>
+                      <div>
+                        <div className="pb-4">
                           <p
-                            className={`text-xs uppercase tracking-wider mb-1 font-heading ${style.panelSub}`}
+                            className={`text-sm uppercase tracking-wider mb-2 font-bold ${style.panelSub}`}
                           >
-                            Value Captured
+                            Value Captured<sup>1</sup>
                           </p>
-                          <div className="flex items-center gap-2">
-                            <div className="flex-1 h-2.5 bg-white/20 rounded-full overflow-hidden">
+                          <div className="flex items-center gap-3">
+                            <div className="flex-1 h-3.5 bg-white/20 rounded-sm overflow-hidden">
                               <motion.div
-                                className="h-full bg-orange rounded-full"
+                                className="h-full bg-orange rounded-sm"
                                 initial={{ width: 0 }}
                                 animate={
                                   isRevealed
@@ -126,28 +149,32 @@ export default function MaturityModel({ headline, subtext, levels }: MaturityMod
                               />
                             </div>
                             <span
-                              className={`font-heading font-bold text-sm ${style.panelText}`}
+                              className={`font-bold text-base ${style.panelText}`}
                             >
                               {level.valueCaptured}
                             </span>
                           </div>
                         </div>
 
-                        <div>
+                        <hr className={`${style.divider} mb-4`} />
+
+                        <div className="pb-4">
                           <p
-                            className={`text-xs uppercase tracking-wider mb-1 font-heading ${style.panelSub}`}
+                            className={`text-sm uppercase tracking-wider mb-1.5 font-bold ${style.panelSub}`}
                           >
-                            Annual Impact
+                            Annual Impact<sup>2</sup>
                           </p>
                           <p
-                            className={`font-heading font-bold text-xl ${style.panelText}`}
+                            className={`font-bold text-2xl md:text-3xl ${style.panelText}`}
                           >
                             {level.annualImpact}
                           </p>
                         </div>
 
+                        <hr className={`${style.divider} mb-4`} />
+
                         <p
-                          className={`text-sm leading-relaxed italic ${style.panelSub}`}
+                          className={`text-base leading-relaxed italic ${style.panelSub}`}
                         >
                           {level.tell}
                         </p>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import Button from "@/components/shared/Button";
+import BodyWithBold from "@/components/shared/BodyWithBold";
 import AnimatedStatBox from "@/components/human-os/AnimatedStatBox";
 import AnimatedLevers from "@/components/human-os/AnimatedLevers";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -95,26 +96,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// ── Helper ──
-
-function BodyWithBold({
-  text,
-  boldPhrase,
-}: {
-  text: string;
-  boldPhrase?: string;
-}) {
-  if (!boldPhrase || !text.includes(boldPhrase)) return <>{text}</>;
-  const parts = text.split(boldPhrase);
-  return (
-    <>
-      {parts[0]}
-      <strong>{boldPhrase}</strong>
-      {parts[1]}
-    </>
-  );
-}
-
 // ── Page ──
 
 export default async function HumanOSPage() {
@@ -133,14 +114,14 @@ export default async function HumanOSPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-12 md:py-20">
-        <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+      <section className="py-12 md:py-20 guide-line-b guide-vline-center">
+        <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <SectionWrapper>
             <h1 className="font-heading text-5xl md:text-7xl font-bold leading-[1.05] text-violet mb-6">
               {p.heroHeadline}
             </h1>
             {p.heroSubheading && (
-              <p className="font-heading text-xl md:text-2xl text-zaffre/70 mb-6">
+              <p className="font-heading text-2xl md:text-[2.25rem] font-medium text-zaffre/70 mb-6">
                 {p.heroSubheading}
               </p>
             )}
@@ -171,7 +152,7 @@ export default async function HumanOSPage() {
       </section>
 
       {/* Five Levers + Bottom CTA — single violet block */}
-      <section className="bg-violet text-cream py-12 md:py-20">
+      <section className="bg-violet text-cream py-12 md:py-20 guide-line-b">
         {/* Levers header */}
         <div className="mx-auto max-w-7xl px-6">
           <SectionWrapper>
@@ -246,14 +227,14 @@ export default async function HumanOSPage() {
       </section>
 
       {/* Bottom image section */}
-      <section className="py-0">
+      <section className="py-0 guide-line-b">
         <div className="mx-auto max-w-5xl px-6">
           <Image
             src="/images/human-os/human-os.png"
             alt="Technology and architecture collage"
             width={1440}
             height={800}
-            className="w-full h-auto"
+            className="w-full h-auto mix-blend-multiply"
           />
         </div>
       </section>

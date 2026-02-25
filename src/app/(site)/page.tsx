@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import Button from "@/components/shared/Button";
 import FormulaSection from "@/components/shared/FormulaSection";
+import BodyWithBold from "@/components/shared/BodyWithBold";
 import { sanityFetch } from "@/sanity/lib/live";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { HomePage } from "@/types";
@@ -37,23 +38,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-/**
- * Render body text with a bold phrase highlighted.
- */
-function BodyWithBold({ text, boldPhrase }: { text: string; boldPhrase?: string }) {
-  if (!boldPhrase || !text.includes(boldPhrase)) {
-    return <>{text}</>;
-  }
-  const parts = text.split(boldPhrase);
-  return (
-    <>
-      {parts[0]}
-      <strong>{boldPhrase}</strong>
-      {parts[1]}
-    </>
-  );
-}
-
 export default async function HomePageRoute() {
   let page: HomePage = fallback;
 
@@ -69,19 +53,19 @@ export default async function HomePageRoute() {
   return (
     <>
       {/* Hero Section — centered, no image */}
-      <section className="py-12 md:py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+      <section className="pt-12 md:pt-20 pb-8 md:pb-12 guide-line-b">
+        <div className="mx-auto max-w-5xl px-6 text-center">
           <SectionWrapper>
             <h1 className="font-heading text-5xl md:text-7xl font-bold leading-[1.05] text-violet mb-6">
               {page.heroHeadline}
             </h1>
             {page.heroSubheading && (
-              <p className="font-heading text-2xl md:text-3xl text-zaffre/70 mb-6">
+              <p className="font-heading text-2xl md:text-3xl font-medium text-zaffre/70 mb-6">
                 {page.heroSubheading}
               </p>
             )}
             {page.heroBody && (
-              <p className="text-violet/80 text-base leading-relaxed max-w-2xl mx-auto">
+              <p className="text-violet/80 text-base leading-relaxed max-w-4xl mx-auto">
                 <BodyWithBold text={page.heroBody} boldPhrase={page.heroBoldPhrase} />
               </p>
             )}
@@ -92,7 +76,7 @@ export default async function HomePageRoute() {
       <FormulaSection />
 
       {/* CTA Section */}
-      <section className="py-12 md:py-16">
+      <section className="py-12 md:py-16 guide-line-t guide-line-b">
         <div className="mx-auto max-w-7xl px-6">
           <SectionWrapper>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

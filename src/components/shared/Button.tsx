@@ -18,7 +18,7 @@ export default function Button({
   type = "button",
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center gap-2 font-heading text-base tracking-wide px-8 py-3.5 border-2 transition-all duration-300 cursor-pointer";
+    "inline-flex items-center gap-2 font-heading font-bold text-base tracking-wide px-8 py-3.5 border-2 transition-all duration-300 cursor-pointer";
 
   const variants = {
     primary:
