@@ -14,7 +14,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero + Form Section */}
-      <section className="pt-12 md:pt-20 pb-8 md:pb-12">
+      <section className="pt-12 md:pt-20 pb-8 md:pb-12 guide-line-b guide-vline-center">
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-12 md:gap-16 items-start">
           <SectionWrapper>
             <h1 className="font-heading text-5xl md:text-7xl font-bold leading-[1.05] text-violet mb-8">
@@ -39,11 +39,13 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Hiring Section — image overlaps upward to reduce whitespace */}
-      <section className="pb-12 md:pb-16">
+      {/* Double-line connector — vertical line bridges the gap */}
+      <div className="h-6 guide-vline-center" />
+
+      {/* Hiring Section */}
+      <section className="pt-10 pb-12 md:pb-16 guide-line-t guide-vline-center">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="border-t border-periwinkle/30 mb-8 md:mb-12" />
-          <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1fr] gap-8 md:gap-12 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
             <SectionWrapper>
               <div className="relative w-full aspect-[5/6] md:-mt-16 overflow-hidden">
                 <Image

@@ -93,15 +93,13 @@ export default function FormulaSection() {
 
   return (
     <section className="bg-violet text-cream py-10 md:py-12 relative overflow-hidden">
-      <div className="absolute inset-0 flex justify-center">
-        <div
-          className="w-full max-w-3xl h-full"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M18 15v6M15 18h6' stroke='%237884FF' stroke-width='0.75' fill='none' opacity='0.35'/%3E%3C/svg%3E")`,
-            backgroundRepeat: "repeat",
-          }}
-        />
-      </div>
+      <div
+        className="absolute inset-y-0 left-[15%] right-[15%]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M20 14v12M14 20h12' stroke='%237884FF' stroke-width='1.5' fill='none' opacity='0.3'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat",
+        }}
+      />
       <div className="mx-auto max-w-7xl px-6 relative z-10">
         <motion.div
           ref={ref}
@@ -111,7 +109,7 @@ export default function FormulaSection() {
         >
           <div className="flex flex-col items-center">
             <div
-              className="grid items-baseline gap-x-2 sm:gap-x-3 md:gap-x-5 gap-y-0 text-center font-mono tracking-tight max-w-2xl w-full mx-auto"
+              className="grid items-center gap-x-2 sm:gap-x-3 md:gap-x-5 gap-y-0 text-center font-mono tracking-tight max-w-2xl w-full mx-auto"
               style={{ gridTemplateColumns: "1fr auto 1fr auto 1fr" }}
             >
               {/* Row 1: "You've got" label + arrow — fade in together */}
@@ -135,21 +133,21 @@ export default function FormulaSection() {
               <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex justify-center">
                 AI
               </span>
-              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/50">×</span>
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex items-center justify-center -translate-x-[0.25em]">×</span>
               <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex justify-center">
                 human
               </span>
-              <span className="text-2xl sm:text-4xl md:text-6xl text-cream/50">=</span>
+              <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex items-center justify-center">=</span>
               <span className="text-2xl sm:text-4xl md:text-6xl text-cream flex justify-center">
                 value
               </span>
 
               {/* Row 3: sub-labels */}
-              <span className="text-cream/80 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
+              <span className="text-cream/80 text-xs sm:text-sm font-bold tracking-wider uppercase pt-2 flex justify-center">
                 Capability
               </span>
               <div />
-              <span className="text-cream/80 text-[10px] sm:text-xs tracking-wider uppercase pt-2 flex justify-center">
+              <span className="text-cream/80 text-xs sm:text-sm font-bold tracking-wider uppercase pt-2 flex justify-center">
                 Readiness
               </span>
               <div />

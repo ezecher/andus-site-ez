@@ -187,17 +187,17 @@ export default async function FieldNotesPage() {
           {featured.map((note, i) => (
             <SectionWrapper key={note._id} delay={i * 0.1}>
               <div
-                className={`grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-periwinkle/30 pb-12 ${
+                className={`bg-white border border-indigo/25 p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center ${
                   i % 2 === 1 ? "md:direction-rtl" : ""
                 }`}
               >
-                <div className={i % 2 === 1 ? "md:order-2" : ""}>
+                <div className={`${i % 2 === 1 ? "md:order-2" : ""} relative h-[260px] md:h-[340px]`}>
                   <Image
                     src={getCoverUrl(note)}
                     alt={note.title}
-                    width={600}
-                    height={400}
-                    className="w-full h-auto"
+                    fill
+                    className="object-contain object-left"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     unoptimized={!!note.coverImageUrl}
                   />
                 </div>
@@ -241,15 +241,21 @@ export default async function FieldNotesPage() {
               </h2>
             </SectionWrapper>
           </div>
-          <div className="relative">
-            <div className="flex gap-6 overflow-x-auto px-6 pb-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-periwinkle scrollbar-track-transparent md:pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))]">
+          <div
+            className="relative overflow-hidden"
+            style={{
+              marginLeft: 'max(0.75rem, calc((100% - 86rem) / 2))',
+              marginRight: 'max(0.75rem, calc((100% - 86rem) / 2))',
+            }}
+          >
+            <div className="flex gap-6 overflow-x-auto pb-6 pr-6 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-periwinkle scrollbar-track-transparent" style={{ paddingLeft: 'max(1.5rem, calc((100% - 80rem) / 2 + 1.5rem))' }}>
               {secondary.map((note, i) => (
                 <SectionWrapper key={note._id} delay={i * 0.1}>
                   <Link
                     href={getNoteHref(note)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex-shrink-0 w-[280px] sm:w-[320px] snap-start block"
+                    className="group flex-shrink-0 w-[280px] sm:w-[320px] snap-start block bg-white border border-indigo/25 p-4"
                   >
                     <div className="aspect-[4/5] relative overflow-hidden mb-4 bg-periwinkle/20">
                       <Image

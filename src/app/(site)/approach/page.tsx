@@ -118,13 +118,13 @@ export default async function ApproachPageRoute() {
       {/* Readiness Tax Warning */}
       <section className="bg-violet text-cream py-14 md:py-20 relative overflow-hidden">
         <div
-          className="absolute inset-0"
+          className="absolute inset-y-0 left-[15%] right-[15%]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M20 14v12M14 20h12' stroke='%237884FF' stroke-width='1.5' fill='none' opacity='0.3'/%3E%3C/svg%3E")`,
             backgroundRepeat: "repeat",
           }}
         />
-        <div className="mx-auto max-w-7xl px-6 relative z-10">
+        <div className="mx-auto max-w-5xl px-6 relative z-10">
           <SectionWrapper>
             <div className="flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16">
               {/* Left: icon + text */}

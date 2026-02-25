@@ -57,7 +57,7 @@ export default async function TeamPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-12 md:py-20">
+      <section className="py-12 md:py-20 guide-line-b guide-vline-center">
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <SectionWrapper>
             <h1 className="font-heading text-5xl md:text-7xl font-bold leading-[1.05] text-violet mb-6">
@@ -90,7 +90,7 @@ export default async function TeamPage() {
       </section>
 
       {/* Operating Model Section */}
-      <section className="py-10 md:py-16">
+      <section className="py-10 md:py-16 guide-line-b">
         <div className="mx-auto max-w-7xl px-6">
           <SectionWrapper>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-16">
@@ -115,7 +115,7 @@ export default async function TeamPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-10">
+      <section className="pt-10 pb-6 mt-6 guide-line-t guide-line-b">
         <div className="mx-auto max-w-7xl px-6">
           <SectionWrapper>
             <h2 className="font-heading text-4xl md:text-5xl font-bold text-violet mb-4">
@@ -133,7 +133,7 @@ export default async function TeamPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-16 border-t border-periwinkle/30">
+      <section className="py-12 md:py-16 mt-6 guide-line-t bg-periwinkle/30">
         <div className="mx-auto max-w-7xl px-6">
           <SectionWrapper>
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">

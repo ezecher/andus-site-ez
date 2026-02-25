@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface FooterProps {
   navLinks: { label: string; href: string }[];
@@ -24,16 +25,21 @@ export default function Footer({
   const rightCol = allLinks.slice(4);
 
   return (
-    <footer className="bg-violet text-cream">
-      <div className="mx-auto max-w-7xl px-6 py-8">
+    <footer className="bg-violet text-cream guide-line-t">
+      <div className="pt-6 guide-line-b" />
+      <div className="mx-auto max-w-7xl px-6 pt-8 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left: Logo + description */}
           <div>
             <div className="mb-4">
               <Link href="/" className="block">
-                <span className="font-heading text-2xl md:text-3xl font-bold tracking-tighter text-cream">
-                  and<span className="text-indigo">us</span> labs
-                </span>
+                <Image
+                  src="/images/logo/andus-logo-neg-horiz.svg"
+                  alt="Andus Labs"
+                  width={175}
+                  height={50}
+                  className="h-10 md:h-12 w-auto"
+                />
               </Link>
             </div>
             <p className="text-cream/70 text-sm leading-relaxed max-w-md">
@@ -94,8 +100,11 @@ export default function Footer({
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-cream/10">
+      </div>
+
+      {/* Copyright — full-width border */}
+      <div className="mt-8 guide-line-t">
+        <div className="mx-auto max-w-7xl px-6 pt-6 pb-8">
           <p className="text-cream/40 text-xs">
             &copy; {new Date().getFullYear()} Andus Labs Inc. All Rights
             Reserved. All names, service marks, logos, trade names,
