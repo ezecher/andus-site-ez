@@ -77,6 +77,12 @@ body {
   width: 1px;
   background: rgba(120, 132, 255, 0.6);
   pointer-events: none;
+  display: none;
+}
+@media (min-width: 768px) {
+  .guide-vline-center::after {
+    display: block;
+  }
 }
 
 /* Hover underline animation for nav links */
